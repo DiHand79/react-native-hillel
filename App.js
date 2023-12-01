@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Card from './components/card';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LinearGradient
+      colors={['#840301ff', '#a51201ff', '#e95612ff', '#f47018ff']}
+      style={styles.container}
+    >
+      <SafeAreaView style={styles.linearGradient}>
+        {/* <View style={styles.container}> */}
+        <Card />
+        {/* </View> */}
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#ff0000',
+  },
+  linearGradient: {
+    // flex: 1,
+    borderRadius: 50,
+    backgroundColor: '#0000ff',
   },
 });
