@@ -24,3 +24,6 @@ https://reactnative.dev/docs/text#limited-style-inheritance
 
 Gradient
 https://docs.expo.dev/versions/latest/sdk/linear-gradient/
+
+Shadow generator
+https://ethercreative.github.io/react-native-shadow-generator/

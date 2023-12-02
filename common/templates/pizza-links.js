@@ -164,6 +164,7 @@ export const pizzaPromos = {
   zombie2:
     'https://neural.love/ai-art-generator/1ee63fcd-7986-635e-9670-6d26471b4fca/hot-pizza-sharp-focus-emitting-diodes-smoke-artillery-sparks-racks-system-unit-motherboard',
 };
+
 export const pizzaImages = [
   'https://neural.love/ai-art-generator/1ee88086-2040-6320-8202-f73824426a3e/pizza-realistic-food-photography-octane-render-hot-pizza-ad-instagram-stotries-to-black-friday',
   'https://neural.love/ai-art-generator/1ee88086-2040-6320-8202-f73824426a3e/pizza-realistic-food-photography-octane-render-hot-pizza-ad-instagram-stotries-to-black-friday',

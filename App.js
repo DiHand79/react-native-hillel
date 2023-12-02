@@ -1,5 +1,6 @@
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { itemTemplate } from './common/templates/item-card';
 import Card from './components/card';
 
 export default function App() {
@@ -9,7 +10,7 @@ export default function App() {
         colors={['#840301ff', '#a51201ff', '#e95612ff', '#f47018ff']}
         style={styles.container}
       >
-        <Card />
+        <Card cardData={itemTemplate} />
       </LinearGradient>
     </SafeAreaView>
   );
