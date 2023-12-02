@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   wrapperPrice: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-start',
     marginVertical: 15,
     marginLeft: 5,

@@ -1,11 +1,19 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
-export default function ProductHandlers() {
+
+export default function ProductHandlers({ data }) {
   return (
     <View style={styles.wrapper}>
-      <Image
-        style={styles.favoriteIcon}
-        source={require('../../assets/favorite-black.jpeg')}
-      />
+      {data.isFavorite ? (
+        <Image
+          style={styles.favoriteIcon}
+          source={require('../../assets/favorite-red.png')}
+        />
+      ) : (
+        <Image
+          style={styles.favoriteIcon}
+          source={require('../../assets/favorite-black.jpeg')}
+        />
+      )}
 
       <View style={styles.buyWrapper}>
         <Image

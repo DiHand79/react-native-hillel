@@ -10,7 +10,7 @@ export default function ProductImage({ data }) {
       />
       {data.isPromo && (
         <ImagePromotion
-          color={'#ee4200ff'}
+          color={data.promoColor}
           text={data.isPromo}
         />
       )}

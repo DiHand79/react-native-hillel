@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     width: '96%',
-    padding: 0,
+    margin: 10,
     backgroundColor: '#f9fafaff',
 
     // overflow: 'hidden', // off for work shadow
