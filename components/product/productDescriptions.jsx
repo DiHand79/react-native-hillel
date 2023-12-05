@@ -4,7 +4,12 @@ export default function ProductDescriptions({ data }) {
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title}>{title}</Text>
+      <Text
+        style={styles.title}
+        numberOfLines={2}
+      >
+        {title}
+      </Text>
 
       <View style={styles.wrapperPrice}>
         <Text style={styles.price}>
