@@ -1,19 +1,28 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function ProductHandlers({ data }) {
+  const [favorite, setFavorite] = useState(data.isFavorite);
+
+  const onPressFavorite = () => {
+    setFavorite(!favorite);
+  };
   return (
     <View style={styles.wrapper}>
-      {data.isFavorite ? (
-        <Image
-          style={styles.favoriteIcon}
-          source={require('../../assets/favorite-red.png')}
-        />
-      ) : (
-        <Image
-          style={styles.favoriteIcon}
-          source={require('../../assets/favorite-black.jpeg')}
-        />
-      )}
+      <TouchableOpacity onPress={onPressFavorite}>
+        {favorite ? ( //data.isFavorite
+          <Image
+            style={styles.favoriteIcon}
+            source={require('../../assets/favorite-red.png')}
+            on
+          />
+        ) : (
+          <Image
+            style={styles.favoriteIcon}
+            source={require('../../assets/favorite-black.jpeg')}
+          />
+        )}
+      </TouchableOpacity>
 
       <View style={styles.buyWrapper}>
         <Image

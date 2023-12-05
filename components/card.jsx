@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from 'react-native';
-import ProductImage from './product/productImage/productImage';
-import ProductDescriptions from './product/productDescriptions';
-import ProductHandlers from './product/productHandlers';
+import ProductImage from './product/productImage/ProductImage';
+import ProductDescriptions from './product/ProductDescriptions';
+import ProductHandlers from './product/ProductHandlers';
 
 export default function Card({ cardData }) {
   const { key } = cardData;

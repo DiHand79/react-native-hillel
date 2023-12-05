@@ -24,7 +24,12 @@ export default function ProductDescriptions({ data }) {
         </Text>
       </View>
 
-      <Text style={styles.description}>{description}</Text>
+      <Text
+        style={styles.description}
+        numberOfLines={2}
+      >
+        {description}
+      </Text>
     </View>
   );
 }
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     maxHeight: 80,
     fontSize: 16,
     color: '#4e2f20ff',
-    flex: 6,
+    flex: 5,
     zIndex: 0,
   },
 });

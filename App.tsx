@@ -1,7 +1,7 @@
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { itemsTemplate } from './common/templates/item-card';
-import Card from './components/card';
+import Card from './components/Card';
 
 export default function App() {
   return (
