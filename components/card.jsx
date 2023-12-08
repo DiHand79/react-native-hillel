@@ -3,7 +3,7 @@ import ProductImage from './product/productImage/ProductImage';
 import ProductDescriptions from './product/ProductDescriptions';
 import ProductHandlers from './product/ProductHandlers';
 
-export default function Card({ cardData }) {
+function Card({ cardData }) {
   const { key } = cardData;
 
   return (
@@ -37,3 +37,5 @@ const styles = StyleSheet.create({
     elevation: 14,
   },
 });
+
+export default Card;

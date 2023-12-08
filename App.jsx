@@ -1,9 +1,12 @@
+import { useMemo } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
+import Card from './components/Card'; /// WTF Double importr??
 import { LinearGradient } from 'expo-linear-gradient';
-import { itemsTemplate } from './common/templates/item-card';
-import Card from './components/card';
+import { itemsTemplate, generateItems } from './common/templates/item-card';
 
 export default function App() {
+  // const [items] = useMemo(generateItems(3));
+  // console.log('ITEMS GENERATED: ', items);
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
