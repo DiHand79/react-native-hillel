@@ -2,7 +2,9 @@ import { useMemo } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import Card from './components/Card'; /// WTF Double importr??
 import { LinearGradient } from 'expo-linear-gradient';
-import { itemsTemplate, generateItems } from './common/templates/item-card';
+import { itemsTemplate } from './common/templates/item-card';
+import Card from './components/Card';
+import { colors } from './common/colors';
 
 export default function App() {
   // const [items] = useMemo(generateItems(3));
@@ -10,7 +12,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#840301ff', '#a51201ff', '#e95612ff', '#f47018ff']}
+        colors={colors['app-background-gradient']}
         style={styles.container}
       >
         {itemsTemplate.map((item) => (
@@ -29,6 +31,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#111',
+    backgroundColor: colors['app-background'],
   },
 });

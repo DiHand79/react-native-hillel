@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import ProductImage from './product/productImage/ProductImage';
 import ProductDescriptions from './product/ProductDescriptions';
 import ProductHandlers from './product/ProductHandlers';
+import { colors } from '../common/colors';
 
 function Card({ cardData }) {
   const { key } = cardData;
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '96%',
     margin: 10,
-    backgroundColor: '#f9fafaff',
+    backgroundColor: colors['card-background'],
 
     // overflow: 'hidden', // off for work shadow
     shadowColor: '#000',

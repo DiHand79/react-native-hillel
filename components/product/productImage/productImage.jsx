@@ -1,5 +1,6 @@
 import { View, StyleSheet, Image } from 'react-native';
 import ImagePromotion from './ImagePromotion';
+import { colors } from '../../../common/colors';
 
 export default function ProductImage({ data }) {
   return (
@@ -30,6 +31,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width: 100,
     height: 150,
-    backgroundColor: '#999',
+    backgroundColor: colors['product-image-background'],
   },
 });
