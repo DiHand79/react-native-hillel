@@ -103,7 +103,7 @@ const uids = [
 export default uids;
 
 /**
- * PRBLEM : 'self.crypto.randomUUID()', // not work in react-native
+ * PROBLEM : 'self.crypto.randomUUID()', // not work in react-native
  *
  * sample solution generated for debug or dev
  * use in browser JS env
