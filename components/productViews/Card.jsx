@@ -1,20 +1,25 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Modal, Pressable } from 'react-native';
 import ProductImage from '../product/productImage/ProductImage';
 import ProductDescriptions from '../product/ProductDescriptions';
 import ProductHandlers from '../product/ProductHandlers';
 import { colors } from '../../common/colors/colors';
 
-function Card({ cardData }) {
-  const { key } = cardData;
+/**
+ *  FOR use with FlatList - input data ONLY named as 'item'
+ *  AND set as  renderItem={Card} as simple function NOT <Component/>
+ */
+export default function Card({ item }) {
+  const { key } = item;
 
   return (
     <View
       style={styles.cardWrapper}
       key={key}
     >
-      <ProductImage data={cardData} />
-      <ProductDescriptions data={cardData} />
-      <ProductHandlers data={cardData} />
+      <ProductImage data={item} />
+
+      <ProductDescriptions data={item} />
+      <ProductHandlers data={item} />
     </View>
   );
 }
@@ -38,5 +43,3 @@ const styles = StyleSheet.create({
     elevation: 14,
   },
 });
-
-export default Card;

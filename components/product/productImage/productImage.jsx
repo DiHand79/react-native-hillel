@@ -3,7 +3,6 @@ import ImagePromotion from './ImagePromotion';
 import { colors } from '../../../common/colors/colors';
 
 export default function ProductImage({ data }) {
-  console.warn(data);
   return (
     <View style={styles.imageWrapper}>
       <Image
