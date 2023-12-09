@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { colors } from '../../common/colors';
+import { colors } from '../../common/colors/colors';
 
 export default function ProductDescriptions({ data }) {
   const { title, price, oldPrice, description } = data;

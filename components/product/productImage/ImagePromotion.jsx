@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../../../common/colors';
+import { colors } from '../../../common/colors/colors';
 
 export default function ImagePromotion({ text = 'New', color = '#f47018ff' }) {
   const useStyle = StyleSheet.create({

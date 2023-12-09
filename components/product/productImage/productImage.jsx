@@ -1,6 +1,6 @@
 import { View, StyleSheet, Image } from 'react-native';
 import ImagePromotion from './ImagePromotion';
-import { colors } from '../../../common/colors';
+import { colors } from '../../../common/colors/colors';
 
 export default function ProductImage({ data }) {
   return (

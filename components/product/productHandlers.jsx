@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { colors } from '../../common/colors';
+import { colors } from '../../common/colors/colors';
 
 export default function ProductHandlers({ data }) {
   const [favorite, setFavorite] = useState(data.isFavorite);
