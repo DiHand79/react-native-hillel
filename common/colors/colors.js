@@ -11,6 +11,7 @@ export const colors = {
   'loader-color': '#f49627ff',
   'promotion-hot': '#478900', //olive
   'promotion-new': '#f47018ff', //hot orange
+  'promotion-sale': '#007fc9ff', //hot orange
   'promotion-text': '#f9fafaff', //hot orange
   'product-title': '#4e2f20ff',
   'product-price-title': '#4e2f20ff',
@@ -23,4 +24,5 @@ export const colors = {
   'primary-light-alpha': '#f6f8f766',
   'primary-light-alpha-pressed': '#f6f8f711',
   'primary-dark-alpha': '#12020377',
+  'warning-text': '#f49627ff',
 };

@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, Pressable } from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+  Text,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
 import { itemsTemplate } from './common/templates/item-card';
 import { colors } from './common/colors/colors';
-import Card from './components/Card';
+import Card from './components/productViews/Card';
 import SearchPanel from './components/SearchPanel/SearchPanel';
 
 export default function App() {
@@ -38,32 +44,41 @@ export default function App() {
     setFilteredItems(filtered);
   };
 
-  // const onClearSearch = (input) => {
-  //   setFilteredItems(items);
-  //   input
-  // };
-
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
         colors={colors['app-background-gradient']}
         style={styles.container}
       >
-        {/* <ActivityIndicator
+        <SearchPanel onSearch={onSearch} />
+        <ScrollView style={styles.listItems}>
+          {/* <ActivityIndicator
           size={'large'}
           color={colors['loader-color']}
           style={{ display: loading ? 'flex' : 'none' }}
         /> */}
 
-        <PacmanIndicator
-          color={colors['loader-color']}
-          size={128}
-          style={{ display: loading ? 'flex' : 'none' }}
-        />
+          <PacmanIndicator
+            color={colors['loader-color']}
+            size={128}
+            style={{ display: loading ? 'flex' : 'none' }}
+          />
 
-        <SearchPanel onSearch={onSearch} />
+          {/* <ItemsList /> */}
 
-        {/* {loading ? (
+          {!loading &&
+            (filteredItems.length > 0 ? (
+              filteredItems.map((item) => (
+                <Card
+                  cardData={item}
+                  key={item.key}
+                />
+              ))
+            ) : (
+              <Text style={styles.warningText}>There is nothing</Text>
+            ))}
+
+          {/* {loading ? (s
           <ActivityIndicator
             size={'large'}
             color={colors['loader-color']}
@@ -77,13 +92,7 @@ export default function App() {
             />
           ))
         )} */}
-        {!loading &&
-          filteredItems.map((item) => (
-            <Card
-              cardData={item}
-              key={item.key}
-            />
-          ))}
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );
@@ -95,5 +104,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors['app-background'],
+  },
+  listItems: {
+    flex: 1,
+    width: '100%',
+  },
+  warningText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: colors['warning-text'],
+    padding: 20,
+    marginTop: 10,
   },
 });

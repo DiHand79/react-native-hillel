@@ -35,7 +35,8 @@ export default function SearchPanel({ onSearch }) {
           placeholder='Start Enter text to search:'
           onChangeText={onTextChange}
           maxLength={100}
-          numberOfLines={1}
+          multiline={true}
+          numberOfLines={3}
           value={searchText}
         />
         <ClearSVG
@@ -58,7 +59,12 @@ export default function SearchPanel({ onSearch }) {
 }
 
 const styles = StyleSheet.create({
-  text: { color: colors['primary-dark-alpha'], fontSize: 20, marginRight: 20 },
+  text: {
+    color: colors['primary-dark-alpha'],
+    fontSize: 20,
+    marginRight: 20,
+    maxHeight: 90,
+  },
   wrapperSearchPanel: {
     width: '100%',
     justifyContent: 'center',

@@ -3,11 +3,12 @@ import ImagePromotion from './ImagePromotion';
 import { colors } from '../../../common/colors/colors';
 
 export default function ProductImage({ data }) {
+  console.warn(data);
   return (
     <View style={styles.imageWrapper}>
       <Image
         style={styles.imagePromo}
-        source={require('../../../assets/imgs/pizza/0001.jpeg')} // work
+        source={data.image}
       />
       {data.isPromo && (
         <ImagePromotion

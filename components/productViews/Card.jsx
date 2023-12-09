@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text } from 'react-native';
-import ProductImage from './product/productImage/ProductImage';
-import ProductDescriptions from './product/ProductDescriptions';
-import ProductHandlers from './product/ProductHandlers';
-import { colors } from '../common/colors/colors';
+import ProductImage from '../product/productImage/ProductImage';
+import ProductDescriptions from '../product/ProductDescriptions';
+import ProductHandlers from '../product/ProductHandlers';
+import { colors } from '../../common/colors/colors';
 
 function Card({ cardData }) {
   const { key } = cardData;
