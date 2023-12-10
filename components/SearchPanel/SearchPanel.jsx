@@ -110,9 +110,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     flexDirection: 'row',
-    position: 'absolute',
-    top: 0,
-    zIndex: 1,
+    // position: 'absolute',
+    // top: 0,
+    // zIndex: 1,
 
     // borderWidth: 1,
     // borderColor: 'red',

@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
 import { itemsTemplate } from './common/templates/item-card';
 import { colors } from './common/colors/colors';
-import Card from './components/productViews/Card';
+import ItemCard from './components/productViews/ItemCard';
 import SearchPanel from './components/SearchPanel/SearchPanel';
 import CustomModal from './components/productViews/CustomModal';
 
@@ -49,6 +49,25 @@ export default function App() {
 
   const windowHeight = Dimensions.get('window').height; // screen
 
+  const renderHeader = () => {
+    return (
+      <View
+        style={[
+          styles.HeaderIconsWrapper,
+          [{ display: !loading ? 'flex' : 'none' }],
+        ]}
+      >
+        <CustomModal>
+          <Text style={styles.openModalButton}>Press me</Text>
+        </CustomModal>
+        <SearchPanel
+          onSearch={onSearch}
+          style={styles.searchButton}
+        />
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
@@ -63,7 +82,7 @@ export default function App() {
           />
         </View>
 
-        <View
+        {/* <View
           style={[
             styles.HeaderIconsWrapper,
             [{ display: !loading ? 'flex' : 'none' }],
@@ -76,12 +95,13 @@ export default function App() {
           <CustomModal>
             <Text style={styles.openModalButton}>Press me</Text>
           </CustomModal>
-        </View>
+        </View> */}
 
         <FlatList
           style={styles.listItems}
           data={filteredItems}
-          renderItem={Card}
+          renderItem={ItemCard}
+          ListHeaderComponent={renderHeader}
           ListEmptyComponent={
             <Text style={styles.warningText}>There is nothing</Text>
           }
@@ -133,7 +153,7 @@ const styles = StyleSheet.create({
   listItems: {
     // flex: 10,
     width: '100%',
-    marginTop: 60,
+    // marginTop: 60,
   },
   warningText: {
     textAlign: 'center',

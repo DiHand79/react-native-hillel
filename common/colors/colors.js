@@ -10,8 +10,9 @@ export const colors = {
   'card-background': '#f9fafaff',
   'loader-color': '#f49627ff',
   'promotion-hot': '#478900', //olive
-  'promotion-hot-dark': '#ee0400ff', //olive
+  'promotion-hot-dark': '#175e00', //olive
   'promotion-new': '#f47018ff', //hot orange
+  'promotion-new-dark': '#ee0400ff', //olive
   'promotion-sale': '#007fc9ff', //hot orange
   'promotion-text': '#f9fafaff', //hot orange
   'product-title': '#4e2f20ff',

@@ -29,7 +29,10 @@ export default function CustomModal({ children }) {
           onPress={() => setModalVisible(!modalVisible)}
         ></TouchableOpacity>
         <View
-          style={[styles.centeredView, { marginTop: modalVisible ? 0 : 20 }]}
+          style={[
+            styles.centeredViewModal,
+            { marginTop: modalVisible ? 0 : 20 },
+          ]}
         >
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Pizza now going to you.</Text>
@@ -47,7 +50,7 @@ export default function CustomModal({ children }) {
         onPress={() => setModalVisible(true)}
         style={styles.buttonOpen}
       >
-        <Text style={styles.buttonOpenText}>Press me</Text>
+        <Text style={styles.buttonOpenText}>Detail</Text>
       </Pressable>
     </View>
   );
@@ -61,8 +64,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors['primary-dark-alpha'], //colors['primary-light'], //colors['primary-light-alpha'],
     color: colors['primary-light'],
+    // backgroundColor: colors['primary-dark-alpha'], //colors['primary-light'], //colors['primary-light-alpha'],
+  },
+  centeredViewModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: colors['primary-light'],
+    backgroundColor: colors['primary-dark-alpha'], //colors['primary-light'], //colors['primary-light-alpha'],
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
@@ -87,7 +97,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: colors['promotion-hot-dark'], //colors['primary-light'], //colors['primary-light-alpha'],
+    backgroundColor: colors['promotion-hot'], //colors['primary-light'], //colors['primary-light-alpha'],
     color: colors['primary-light'],
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
@@ -102,7 +112,7 @@ const styles = StyleSheet.create({
     color: colors['primary-light'],
   },
   buttonClose: {
-    backgroundColor: colors['promotion-hot-dark'],
+    backgroundColor: colors['promotion-hot'],
   },
   textStyle: {
     color: 'white',
