@@ -187,6 +187,43 @@ export const pizzaImages = [
   'https://neural.love/ai-art-generator/1ee5b81f-00c5-68d8-9b44-a51f9ff9fc31/stuffed-pizza-with-melted-cheese-pepperoni-salted-egg-yolk-chicken-green-beans-bacon-a-little',
 ];
 
+export const pizzaStaticImages = [
+  require('../../assets/imgs/pizza/0000.jpeg'),
+  require('../../assets/imgs/pizza/0001.jpeg'),
+  require('../../assets/imgs/pizza/0002.jpeg'),
+  require('../../assets/imgs/pizza/0003.jpeg'),
+  require('../../assets/imgs/pizza/0004.jpeg'),
+  require('../../assets/imgs/pizza/0005.jpeg'),
+  require('../../assets/imgs/pizza/0006.jpeg'),
+  require('../../assets/imgs/pizza/0007.jpeg'),
+  require('../../assets/imgs/pizza/0008.jpeg'),
+  require('../../assets/imgs/pizza/0009.jpeg'),
+  require('../../assets/imgs/pizza/0010.jpeg'),
+  require('../../assets/imgs/pizza/0011.jpeg'),
+  require('../../assets/imgs/pizza/0012.jpeg'),
+  require('../../assets/imgs/pizza/0013.jpeg'),
+  require('../../assets/imgs/pizza/0014.jpeg'),
+  require('../../assets/imgs/pizza/0015.jpeg'),
+  require('../../assets/imgs/pizza/0016.jpeg'),
+  require('../../assets/imgs/pizza/0017.jpeg'),
+  require('../../assets/imgs/pizza/0018.jpeg'),
+  require('../../assets/imgs/pizza/0019.jpeg'),
+];
+
+export const pizzaStaticPromoImages = [
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00001.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00002.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00003.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00004.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00005.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00006.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00007.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00008.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00009.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00010.jpg'),
+  require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00011.jpg'),
+];
+
 export const pizzaTags = [
   'cheere',
   'hot',

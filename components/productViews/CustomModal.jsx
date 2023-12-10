@@ -8,9 +8,16 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { colors } from '../../common/colors/colors';
+import CustomSlider from './CustomSlider';
+import {
+  itemsTemplate,
+  generateItems,
+  generatePromoItems,
+} from '../../common/templates/item-card';
 
 export default function CustomModal({ children }) {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -35,13 +42,19 @@ export default function CustomModal({ children }) {
           ]}
         >
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Pizza now going to you.</Text>
-            <Pressable
+            <CustomSlider
+              // style={stylesSwiper.wrapperSwiper}
+              // data={itemsTemplate}
+              data={generateItems(10)}
+              title={'SALE:'}
+              showsButtons={true}
+            />
+            {/* <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
               <Text style={styles.textStyle}>Please wait...</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         </View>
       </Modal>
@@ -77,8 +90,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   modalView: {
+    width: '100%',
+    flex: 1,
     marginTop: 20,
-    backgroundColor: colors['primary-light'],
+    backgroundColor: colors['promotion-hot'],
+
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -99,8 +115,6 @@ const styles = StyleSheet.create({
   buttonOpen: {
     backgroundColor: colors['promotion-hot'], //colors['primary-light'], //colors['primary-light-alpha'],
     color: colors['primary-light'],
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
     padding: 15,
     maxWidth: 100,
     maxHeight: 70,

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
-import { itemsTemplate } from './common/templates/item-card';
+import { itemsTemplate, generateItems } from './common/templates/item-card';
 import { colors } from './common/colors/colors';
 import ItemCard from './components/productViews/ItemCard';
 import SearchPanel from './components/SearchPanel/SearchPanel';
@@ -25,8 +25,9 @@ export default function App() {
   let isItemsLoaded = false;
   useEffect(() => {
     if (!isItemsLoaded) {
-      setItems(itemsTemplate);
-      setFilteredItems(itemsTemplate);
+      const pizzas = generateItems(20);
+      setItems(pizzas);
+      setFilteredItems(pizzas);
       isItemsLoaded = true;
     }
   }, []);

@@ -50,3 +50,7 @@ https://github.com/ant-design/ant-design-icons/blob/master/packages/icons-react-
 
 CODE SVG ICONS
 https://www.svgrepo.com/svg/221335/search-code
+
+CAROUSEL
+https://www.npmjs.com/package/react-native-swiper
+https://www.waldo.com/blog/react-native-swiper
