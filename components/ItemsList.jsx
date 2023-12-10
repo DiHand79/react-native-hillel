@@ -1,30 +1,26 @@
 import { StyleSheet, View, Text } from 'react-native';
-import ProductImage from './product/productImage/ProductImage';
-import ProductDescriptions from './product/ProductDescriptions';
-import ProductHandlers from './product/ProductHandlers';
+import { colors } from '../../common/colors/colors';
 
-function Card({ cardData }) {
+export default function ItemList({ cardData }) {
   const { key } = cardData;
 
   return (
     <View
-      style={styles.cardWrapper}
+      style={styles.listWrapper}
       key={key}
     >
-      <ProductImage data={cardData} />
-      <ProductDescriptions data={cardData} />
-      <ProductHandlers data={cardData} />
+      <Text>ItemList</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cardWrapper: {
+  listWrapper: {
     borderRadius: 10,
     flexDirection: 'row',
     width: '96%',
     margin: 10,
-    backgroundColor: '#f9fafaff',
+    backgroundColor: colors['card-background'],
 
     // overflow: 'hidden', // off for work shadow
     shadowColor: '#000',
@@ -37,5 +33,3 @@ const styles = StyleSheet.create({
     elevation: 14,
   },
 });
-
-export default Card;

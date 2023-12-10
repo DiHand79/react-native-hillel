@@ -1,12 +1,13 @@
 import { View, StyleSheet, Image } from 'react-native';
 import ImagePromotion from './ImagePromotion';
+import { colors } from '../../../common/colors/colors';
 
 export default function ProductImage({ data }) {
   return (
     <View style={styles.imageWrapper}>
       <Image
         style={styles.imagePromo}
-        source={require('../../../assets/imgs/pizza/0001.jpeg')} // work
+        source={data.image}
       />
       {data.isPromo && (
         <ImagePromotion
@@ -30,6 +31,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width: 100,
     height: 150,
-    backgroundColor: '#999',
+    backgroundColor: colors['product-image-background'],
   },
 });

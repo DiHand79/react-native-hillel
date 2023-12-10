@@ -1,4 +1,6 @@
 import { View, StyleSheet, Text, Image } from 'react-native';
+import { colors } from '../../common/colors/colors';
+
 export default function ProductDescriptions({ data }) {
   const { title, price, oldPrice, description } = data;
 
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 2,
     fontSize: 16,
     fontWeight: '700',
-    color: '#4e2f20ff',
+    color: colors['product-title'],
   },
   wrapperPrice: {
     flexDirection: 'row',
@@ -62,28 +64,28 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 30,
     fontWeight: '700',
-    color: '#849006ff', //'#B9B807ff', //'#4e2f20ff',
+    color: colors['product-price'],
   },
   priceTitle: {
     fontSize: 20,
-    color: '#4e2f20ff',
+    color: colors['product-price-title'],
   },
   oldPrice: {
     fontSize: 16,
-    color: '#840000ff', //'#4e2f20ff',
+    color: colors['product-price-old'],
     fontWeight: '600',
     textDecorationLine: 'line-through',
     marginBottom: -5,
   },
   oldPriceTitle: {
     fontSize: 12,
-    color: '#4e2f20ff',
+    color: colors['product-price-old'],
   },
   description: {
     marginLeft: 5,
     maxHeight: 80,
     fontSize: 16,
-    color: '#4e2f20ff',
+    color: colors['product-description'],
     flex: 5,
     zIndex: 0,
   },

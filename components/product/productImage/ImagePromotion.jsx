@@ -1,4 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '../../../common/colors/colors';
+
 export default function ImagePromotion({ text = 'New', color = '#f47018ff' }) {
   const useStyle = StyleSheet.create({
     props: {
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     left: -25,
-    backgroundColor: '#f47018ff',
+    backgroundColor: colors['promotion-new'],
     // minWidth: 50,
     // maxWidth: 200,
     width: 100,
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     elevation: 14,
   },
   text: {
-    color: '#f9fafaff',
+    color: colors['promotion-text'],
     fontSize: 16,
     textAlign: 'center',
   },
