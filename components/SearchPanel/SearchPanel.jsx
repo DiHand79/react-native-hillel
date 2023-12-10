@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Pressable,
+  Image,
   TouchableWithoutFeedback,
 } from 'react-native';
 import { colors } from '../../common/colors/colors';
@@ -74,20 +75,26 @@ export default function SearchPanel({ onSearch }) {
         ) : (
           <></>
         )}
-        <SearchSVG
-          style={[
-            styles.svgIcon,
-            {
-              fill: isPressed
-                ? colors['primary-dark-pressed']
-                : colors['primary-dark'],
-            },
-          ]}
-          width='24'
-          height='24'
-          stroke={colors['primary-dark-alpha']}
-          onPress={onCollapsed}
-        />
+        <Text onPress={onCollapsed}>
+          <Image
+            source={require('../../assets/imgs/icons/search.png')}
+            style={styles.pngIcon}
+          />
+          {/* <SearchSVG
+            style={[
+              styles.svgIcon,
+              {
+                fill: isPressed
+                  ? colors['primary-dark-pressed']
+                  : colors['primary-dark'],
+              },
+            ]}
+            width='24'
+            height='24'
+            stroke={colors['primary-dark-alpha']}
+            // onPress={onCollapsed}
+          /> */}
+        </Text>
       </Pressable>
     </View>
   );
@@ -124,6 +131,11 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'flex-end',
     flexDirection: 'row',
+  },
+  pngIcon: {
+    padding: 10,
+    width: 24,
+    height: 24,
   },
   svgIcon: {
     // // not work for SVG params - only as CSSImage container

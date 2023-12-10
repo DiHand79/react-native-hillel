@@ -43,18 +43,10 @@ export default function CustomModal({ children }) {
         >
           <View style={styles.modalView}>
             <CustomSlider
-              // style={stylesSwiper.wrapperSwiper}
-              // data={itemsTemplate}
-              data={generateItems(10)}
+              data={generatePromoItems(10)}
               title={'SALE:'}
               showsButtons={true}
             />
-            {/* <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Please wait...</Text>
-            </Pressable> */}
           </View>
         </View>
       </Modal>
@@ -71,7 +63,7 @@ export default function CustomModal({ children }) {
 
 const styles = StyleSheet.create({
   touchWrapper: {
-    flex: 0.2,
+    flex: 0.25,
   },
   centeredView: {
     flex: 1,
@@ -92,11 +84,9 @@ const styles = StyleSheet.create({
   modalView: {
     width: '100%',
     flex: 1,
-    marginTop: 20,
     backgroundColor: colors['promotion-hot'],
 
-    borderRadius: 20,
-    padding: 35,
+    borderRadius: 30,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

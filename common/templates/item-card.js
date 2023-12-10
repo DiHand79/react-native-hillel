@@ -111,24 +111,26 @@ const itemsTemplate = [
   },
 ];
 
-function generateItems(count = 10) {
+function generateItems(count = 10, startIndex = 0) {
   const PROMO_COLORS = ['#ee4200ff', '#478900', '#007cc3'];
   const PROMO_TITLE = [null, 'NEW', 'HOT', null, 'SALE', '50%', '2=1', null];
   let items = [];
-  for (let i = 0; i < count; i++) {
-    const DESCRIPTION_INDEX = Math.round(
-      Math.random() * (pizzaDescriptionsArray.length - 1)
+  let init = startIndex ? startIndex : 0;
+  let max = startIndex ? startIndex + count : count;
+  // console.warn(init, max);
+  for (let i = init; i < max; i++) {
+    const DESCRIPTION_INDEX = Math.floor(
+      Math.random() * pizzaDescriptionsArray.length
     );
     const cardTemplate = {
-      key: uids[i],
+      key: Math.random() + '_' + Math.random(), //uids[i],
       title: pizzaNamesArray[i].pizzaName_eng,
-      isPromo:
-        PROMO_TITLE[Math.round(Math.random() * (PROMO_TITLE.length - 1))], // null 'HOT' 'Sale' '50%' '2=1' & etc
-      promoColor:
-        PROMO_COLORS[Math.round(Math.random()) * (PROMO_COLORS.length - 1)],
+      isPromo: PROMO_TITLE[Math.floor(Math.random() * PROMO_TITLE.length)], // null 'HOT' 'Sale' '50%' '2=1' & etc
+      promoColor: PROMO_COLORS[Math.floor(Math.random()) * PROMO_COLORS.length],
       isFavorite: Math.round(Math.random()),
       rating: Math.round(Math.random() * 5),
-      image: pizzaStaticImages[i],
+      image:
+        pizzaStaticImages[Math.floor(Math.random() * pizzaStaticImages.length)],
       price: Math.round(Math.random() * 500) + 50,
       oldPrice: 1.1, // more proce now
       description: pizzaDescriptionsArray[DESCRIPTION_INDEX].pizza_eng,

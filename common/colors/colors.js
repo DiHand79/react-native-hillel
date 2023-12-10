@@ -1,5 +1,5 @@
 export const colors = {
-  'app-background': '#111',
+  'app-background': '#175e00',
   'app-background-gradient': [
     '#840301ff',
     '#a51201ff',

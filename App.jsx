@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
   FlatList,
-  ScrollView,
   Text,
   Dimensions,
   View,
+  RefreshControl,
+  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
@@ -17,21 +18,55 @@ import SearchPanel from './components/SearchPanel/SearchPanel';
 import CustomModal from './components/productViews/CustomModal';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+  const [nextItem, setNextItem] = useState({ count: 0, start: 0 });
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState(items);
-
-  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   let isItemsLoaded = false;
   useEffect(() => {
     if (!isItemsLoaded) {
-      const pizzas = generateItems(20);
-      setItems(pizzas);
-      setFilteredItems(pizzas);
+      const firstGettedItems = generateItems(4, 0); // get first 5 pizzas from server :)
+      setItems(firstGettedItems);
+      setFilteredItems(firstGettedItems);
+      setNextItem({ count: 1, start: 4 });
       isItemsLoaded = true;
     }
   }, []);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      const nextGettedItems = generateItems(nextItem.count, nextItem.start);
+      setItems((prev) => [...prev, ...nextGettedItems]);
+      setNextItem((prev) => ({
+        ...prev,
+        count: 1,
+        start: nextItem.start + 1,
+      }));
+      setRefreshing(false);
+    }, 3000);
+  }, []);
+
+  const onUpdateEndList = () => {
+    if (nextItem.start < 40) {
+      setRefreshing(true);
+      // setTimeout(() => {
+      const nextGettedItems = generateItems(5, nextItem.start);
+      setNextItem((prev) => ({ ...prev, start: nextItem.start + 5 }));
+      setItems((prev) => [...prev, ...nextGettedItems]);
+      setRefreshing(false);
+      // }, 1500);
+    } else Alert.alert('Sorry, End Pizza today.');
+  };
+
+  // add new getted from server pizzas to list
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
+  // simulate loader
   useEffect(() => {
     if (isItemsLoaded) {
       setTimeout(() => setLoading(false), 2000);
@@ -50,24 +85,24 @@ export default function App() {
 
   const windowHeight = Dimensions.get('window').height; // screen
 
-  const renderHeader = () => {
-    return (
-      <View
-        style={[
-          styles.HeaderIconsWrapper,
-          [{ display: !loading ? 'flex' : 'none' }],
-        ]}
-      >
-        <CustomModal>
-          <Text style={styles.openModalButton}>Press me</Text>
-        </CustomModal>
-        <SearchPanel
-          onSearch={onSearch}
-          style={styles.searchButton}
-        />
-      </View>
-    );
-  };
+  // const renderHeader = () => {
+  //   return (
+  //     <View
+  //       style={[
+  //         styles.HeaderIconsWrapper,
+  //         [{ display: !loading ? 'flex' : 'none' }],
+  //       ]}
+  //     >
+  //       <CustomModal>
+  //         <Text style={styles.openModalButton}>Press me</Text>
+  //       </CustomModal>
+  //       <SearchPanel
+  //         onSearch={onSearch}
+  //         style={styles.searchButton}
+  //       />
+  //     </View>
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -83,7 +118,13 @@ export default function App() {
           />
         </View>
 
-        {/* <View
+        <Text style={{ fontSize: 20, color: '#fff' }}>
+          {filteredItems.length} :{' '}
+          {JSON.stringify(items.length === filteredItems.length)}:{' '}
+          {items.length}
+        </Text>
+
+        <View
           style={[
             styles.HeaderIconsWrapper,
             [{ display: !loading ? 'flex' : 'none' }],
@@ -93,26 +134,30 @@ export default function App() {
             onSearch={onSearch}
             style={styles.searchButton}
           />
-          <CustomModal>
-            <Text style={styles.openModalButton}>Press me</Text>
-          </CustomModal>
-        </View> */}
+          <CustomModal />
+        </View>
 
         <FlatList
           style={styles.listItems}
           data={filteredItems}
           renderItem={ItemCard}
-          ListHeaderComponent={renderHeader}
+          // ListHeaderComponent={renderHeader}
           ListEmptyComponent={
             <Text style={styles.warningText}>There is nothing</Text>
           }
-          // ListFooterComponent={
-          //   <CustomModal>
-          //     <Text style={styles.openModalButton}>Press me</Text>
-          //   </CustomModal>
-          // }
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressViewOffset={0}
+            />
+          }
+          onEndReachedThreshold={0.25}
+          // onEndReached={onUpdateEndList}
+          onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
         />
       </LinearGradient>
+      {/* CONFLICT WITH Flat.list.onEndReached */}
     </SafeAreaView>
   );
 }

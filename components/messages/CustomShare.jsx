@@ -1,7 +1,7 @@
 import { Alert, Share, View, Text, StyleSheet, Pressable } from 'react-native';
 import { colors } from '../../common/colors/colors';
 
-export default function CustomShare({ mess, title }) {
+export default function CustomShare({ mess, title, style }) {
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     width: '100%',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
+    // alignItems: 'flex-start',
+    // justifyContent: 'flex-end',
     marginVertical: 20,
   },
   shareText: {
