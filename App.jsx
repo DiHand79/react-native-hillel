@@ -54,8 +54,9 @@ export default function App() {
   }, []);
 
   const onUpdateEndList = ({ distanceFromEnd }) => {
-    console.warn('onUpdateEndList', distanceFromEnd);
-    if (nextItem.start < 40 && !freezeUpdate) {
+    // console.warn('onUpdateEndList', distanceFromEnd);
+    if (nextItem.start < 15 && !freezeUpdate) {
+      // max 40
       setRefreshing(true);
       setTimeout(() => {
         const nextGettedItems = generateItems(5, nextItem.start);
@@ -88,76 +89,74 @@ export default function App() {
     setFilteredItems(filtered);
   };
 
-  const windowHeight = Dimensions.get('window').height; // screen
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* <LinearGradient
-        colors={colors['app-background-gradient']}
-        style={styles.container}
-      > */}
-      <View style={[{ display: loading ? 'flex' : 'none' }]}>
+  const renderLoader = () => {
+    const windowHeight = Dimensions.get('window').height; // screen
+    return (
+      <View style={{ display: loading ? 'flex' : 'none' }}>
         <PacmanIndicator
           color={colors['loader-color']}
           size={128}
           style={[styles.loaderContainer, { height: windowHeight }]}
         />
       </View>
+    );
+  };
 
-      {/* DEBUG START */}
-      {DEBUG_MENU && (
-        <Text style={{ fontSize: 20, color: '#fff' }}>
-          {'items: ' +
-            items.length +
-            ' filteredItems: ' +
-            filteredItems.length +
-            ' next start: ' +
-            nextItem.start}
-          {JSON.stringify(nextItem.start < 40 && !freezeUpdate)}
-        </Text>
-      )}
-      {/* DEBUG END */}
-      <View
-        style={[
-          styles.HeaderIconsWrapper,
-          [{ display: !loading ? 'flex' : 'none' }],
-        ]}
+  return (
+    <SafeAreaView style={styles.container}>
+      <LinearGradient
+        colors={colors['app-background-gradient']}
+        style={styles.container}
       >
-        <SearchPanel
-          onSearch={onSearch}
-          onFreezeUpdate={onFreezeUpdate}
-          style={styles.searchButton}
-        />
-        <CustomModal />
-      </View>
+        {/* {renderLoader(loading)} */}
 
-      {/* <View
-        style={styles.listContainer}
-        removeClippedSubviews
-      > */}
-      <FlatList
-        style={styles.listItems}
-        data={filteredItems}
-        renderItem={ItemCard}
-        ListEmptyComponent={
-          <Text style={styles.warningText}>There is nothing</Text>
-        }
-        refreshing={refreshing}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            progressViewOffset={0.25}
+        {/* DEBUG START */}
+        {DEBUG_MENU && (
+          <Text style={{ fontSize: 20, color: '#fff' }}>
+            {'items: ' +
+              items.length +
+              ' filteredItems: ' +
+              filteredItems.length +
+              ' next start: ' +
+              nextItem.start}
+            {JSON.stringify(nextItem.start < 40 && !freezeUpdate)}
+          </Text>
+        )}
+        {/* DEBUG END */}
+
+        <View
+          style={[
+            styles.HeaderIconsWrapper,
+            [{ display: !loading ? 'flex' : 'none' }],
+          ]}
+        >
+          <SearchPanel
+            onSearch={onSearch}
+            onFreezeUpdate={onFreezeUpdate}
+            style={styles.searchButton}
           />
-        }
-        // onEndThreshold={1} // 1
-        onEndReachedThreshold={0.3} // 1 work
-        onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
-      />
-      {/* </View> */}
+          <CustomModal />
+        </View>
 
-      {/* </LinearGradient> */}
-      {/* CONFLICT wit FlattenList.onEndReached() */}
+        <FlatList
+          style={[styles.listItems, { display: loading ? 'none' : 'flex' }]}
+          data={filteredItems}
+          renderItem={ItemCard}
+          ListEmptyComponent={
+            <Text style={styles.warningText}>There is nothing</Text>
+          }
+          refreshing={refreshing}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressViewOffset={0.25}
+            />
+          }
+          onEndReachedThreshold={0.5} // 1 work
+          onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
+        />
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: colors['app-background'],
+    backgroundColor: colors['primary-dark'], //colors['app-background'],
   },
   loaderContainer: {
     flex: 1,
@@ -185,8 +184,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'baseline',
     width: '96%',
-    marginTop: 40,
-    marginBottom: 20,
+    // marginTop: 40,
+    // marginBottom: 20,
     flexDirection: 'row',
   },
   searchButton: {
@@ -200,8 +199,8 @@ const styles = StyleSheet.create({
     color: colors['primary-light'],
   },
   listItems: {
-    width: '100%',
     flex: 1,
+    width: '100%',
 
     // borderWidth: 3,
     // borderColor: 'red',
