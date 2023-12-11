@@ -28,6 +28,8 @@ export default function App() {
   const [refreshing, setRefreshing] = useState(false);
   const [freezeUpdate, onFreezeUpdate] = useState(false);
 
+  const windowHeight = Dimensions.get('window').height; // screen
+
   let isItemsLoaded = false;
   useEffect(() => {
     if (!isItemsLoaded) {
@@ -40,17 +42,19 @@ export default function App() {
   }, []);
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      const nextGettedItems = generateItems(nextItem.count, nextItem.start);
-      setItems((prev) => [...prev, ...nextGettedItems]);
-      setNextItem((prev) => ({
-        ...prev,
-        count: 1,
-        start: prev.start + 1,
-      }));
-      setRefreshing(false);
-    }, 3000);
+    if (nextItem.start < 15) {
+      setRefreshing(true);
+      setTimeout(() => {
+        const nextGettedItems = generateItems(nextItem.count, nextItem.start);
+        setItems((prev) => [...nextGettedItems, ...prev]);
+        setNextItem((prev) => ({
+          ...prev,
+          count: 1,
+          start: prev.start + 1,
+        }));
+        setRefreshing(false);
+      }, 3000);
+    }
   }, []);
 
   const onUpdateEndList = ({ distanceFromEnd }) => {
@@ -58,13 +62,15 @@ export default function App() {
     if (nextItem.start < 15 && !freezeUpdate) {
       // max 40
       setRefreshing(true);
-      setTimeout(() => {
-        const nextGettedItems = generateItems(5, nextItem.start);
-        setNextItem((prev) => ({ ...prev, start: prev.start + 5 }));
-        setItems((prev) => [...prev, ...nextGettedItems]);
-        setRefreshing(false);
-      }, 500);
-    } else if (!freezeUpdate) Alert.alert('Sorry, End Pizza today.');
+      // setTimeout(() => {
+      const nextGettedItems = generateItems(5, nextItem.start);
+      setNextItem((prev) => ({ ...prev, start: prev.start + 5 }));
+      setItems((prev) => [...prev, ...nextGettedItems]);
+      setRefreshing(false);
+      // }, 500);
+    }
+    // else if (!freezeUpdate && nextItem.start > 14)
+    //   Alert.alert('Sorry, End Pizza today.');
   };
 
   // add new getted from server pizzas to list
@@ -89,18 +95,19 @@ export default function App() {
     setFilteredItems(filtered);
   };
 
-  const renderLoader = () => {
-    const windowHeight = Dimensions.get('window').height; // screen
-    return (
-      <View style={{ display: loading ? 'flex' : 'none' }}>
-        <PacmanIndicator
-          color={colors['loader-color']}
-          size={128}
-          style={[styles.loaderContainer, { height: windowHeight }]}
-        />
-      </View>
-    );
-  };
+  // // not work
+  // const renderLoader = () => {
+  //   const windowHeight = Dimensions.get('window').height; // screen
+  //   return (
+  //     <View style={{ display: loading ? 'flex' : 'none' }}>
+  //       <PacmanIndicator
+  //         color={colors['loader-color']}
+  //         size={128}
+  //         style={[styles.loaderContainer, { height: windowHeight }]}
+  //       />
+  //     </View>
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -108,7 +115,15 @@ export default function App() {
         colors={colors['app-background-gradient']}
         style={styles.container}
       >
-        {/* {renderLoader(loading)} */}
+        {/*  if used - break good work FlatList.onEndReached
+          <View style={{ display: loading ? 'flex' : 'none' }}>
+            <PacmanIndicator
+              color={colors['loader-color']}
+              size={128}
+              style={[styles.loaderContainer, { height: windowHeight }]}
+            />
+          </View>
+        */}
 
         {/* DEBUG START */}
         {DEBUG_MENU && (
@@ -150,10 +165,10 @@ export default function App() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              progressViewOffset={0.25}
+              progressViewOffset={0.5}
             />
           }
-          onEndReachedThreshold={0.5} // 1 work
+          onEndReachedThreshold={0.5}
           onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
         />
       </LinearGradient>

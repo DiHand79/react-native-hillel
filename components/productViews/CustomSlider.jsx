@@ -13,16 +13,25 @@ import CustomShare from '../messages/CustomShare';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { colors } from '../../common/colors/colors';
 
+const DELAY_FOR_NEXT_SLIDE_AUTO_SCROLL = 5000;
 export default function CustomSlider({ data, title, showsButtons }) {
   const flatListRef = useRef();
   const [activeIndex, setActiveIndex] = useState(0);
   const screen = new Dimensions.get('screen');
 
-  // const nextIndex = (activeIndex + 1) % (data.length - 1);
-  // console.warn('REFRESH', nextIndex);
-  // setActiveIndex(nextIndex);
-
   const mess = 'This great proposial Pizza very sexy and wait you';
+
+  let isUserSleep = false;
+  useEffect(() => {
+    let autoScrollTimer;
+    if (!isUserSleep) {
+      autoScrollTimer = setTimeout(() => {
+        onClickPaggination((activeIndex + 1) % data.length);
+      }, DELAY_FOR_NEXT_SLIDE_AUTO_SCROLL);
+      isUserSleep = true;
+    }
+    return () => clearTimeout(autoScrollTimer);
+  }, [activeIndex]);
 
   const renderSlide = ({ item }) => {
     return (
