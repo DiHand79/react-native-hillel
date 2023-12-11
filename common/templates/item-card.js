@@ -2,6 +2,7 @@ import {
   pizzaImages,
   pizzaStaticImages,
   pizzaStaticPromoImages,
+  pizzaStaticPromoImagesURL,
 } from '../templates/pizza-links';
 import {
   pizzaDescriptionsArray,
@@ -161,6 +162,7 @@ function generatePromoItems(count = 11) {
       isFavorite: Math.round(Math.random()),
       rating: Math.round(Math.random() * 5),
       image: pizzaStaticPromoImages[i],
+      shareLink: pizzaStaticPromoImagesURL[i],
       price: Math.round(Math.random() * 500) + 50,
       oldPrice: 1.1, // more proce now
       description: pizzaDescriptionsArray[DESCRIPTION_INDEX].pizza_eng,

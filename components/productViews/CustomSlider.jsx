@@ -30,8 +30,9 @@ export default function CustomSlider({ data, title, showsButtons }) {
         <View style={styles.imageCropWrapper}>
           <View style={styles.slideTitleWrapper}>
             <CustomShare
-              style={styles.slideShare}
+              // style={styles.slideShare}
               mess={mess}
+              img={item.shareLink}
               title={'Share:'}
             />
             <Text style={styles.slideTitle}>{item.title}</Text>
@@ -163,18 +164,20 @@ const styles = StyleSheet.create({
   slide: {
     flex: 1,
     width: '100%',
-
     position: 'relative',
     justifyContent: 'top',
     alignItems: 'center',
 
-    // backgroundColor: colors['primary-light'],
     // borderWidth: 10,
     // borderColor: 'violet',
   },
   imageCropWrapper: {
-    // width: '100%',
     position: 'relative',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+
+    // borderWidth: 3,
+    // borderColor: 'red',
   },
   slideTitleWrapper: {
     position: 'absolute',
@@ -185,6 +188,10 @@ const styles = StyleSheet.create({
     zIndex: 1,
     // width: '100%',
     backgroundColor: colors['promotion-image-overlay-dark'], //colors['primary-dark'],
+    justifyContent: 'flex-end',
+
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
   slideTitle: {
     margin: 20,
@@ -199,9 +206,6 @@ const styles = StyleSheet.create({
   slideImage: {
     height: 500, //'100%',
     resizeMode: 'cover',
-
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
 });
 

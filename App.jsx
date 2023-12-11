@@ -8,6 +8,7 @@ import {
   View,
   RefreshControl,
   Alert,
+  ScrollView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
@@ -17,12 +18,15 @@ import ItemCard from './components/productViews/ItemCard';
 import SearchPanel from './components/SearchPanel/SearchPanel';
 import CustomModal from './components/productViews/CustomModal';
 
+let DEBUG_MENU = true;
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [nextItem, setNextItem] = useState({ count: 0, start: 0 });
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState(items);
   const [refreshing, setRefreshing] = useState(false);
+  const [freezeUpdate, onFreezeUpdate] = useState(false);
 
   let isItemsLoaded = false;
   useEffect(() => {
@@ -43,22 +47,23 @@ export default function App() {
       setNextItem((prev) => ({
         ...prev,
         count: 1,
-        start: nextItem.start + 1,
+        start: prev.start + 1,
       }));
       setRefreshing(false);
     }, 3000);
   }, []);
 
-  const onUpdateEndList = () => {
-    if (nextItem.start < 40) {
+  const onUpdateEndList = ({ distanceFromEnd }) => {
+    console.warn('onUpdateEndList', distanceFromEnd);
+    if (nextItem.start < 40 && !freezeUpdate) {
       setRefreshing(true);
-      // setTimeout(() => {
-      const nextGettedItems = generateItems(5, nextItem.start);
-      setNextItem((prev) => ({ ...prev, start: nextItem.start + 5 }));
-      setItems((prev) => [...prev, ...nextGettedItems]);
-      setRefreshing(false);
-      // }, 1500);
-    } else Alert.alert('Sorry, End Pizza today.');
+      setTimeout(() => {
+        const nextGettedItems = generateItems(5, nextItem.start);
+        setNextItem((prev) => ({ ...prev, start: prev.start + 5 }));
+        setItems((prev) => [...prev, ...nextGettedItems]);
+        setRefreshing(false);
+      }, 500);
+    } else if (!freezeUpdate) Alert.alert('Sorry, End Pizza today.');
   };
 
   // add new getted from server pizzas to list
@@ -85,79 +90,74 @@ export default function App() {
 
   const windowHeight = Dimensions.get('window').height; // screen
 
-  // const renderHeader = () => {
-  //   return (
-  //     <View
-  //       style={[
-  //         styles.HeaderIconsWrapper,
-  //         [{ display: !loading ? 'flex' : 'none' }],
-  //       ]}
-  //     >
-  //       <CustomModal>
-  //         <Text style={styles.openModalButton}>Press me</Text>
-  //       </CustomModal>
-  //       <SearchPanel
-  //         onSearch={onSearch}
-  //         style={styles.searchButton}
-  //       />
-  //     </View>
-  //   );
-  // };
-
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
+      {/* <LinearGradient
         colors={colors['app-background-gradient']}
         style={styles.container}
-      >
-        <View style={[{ display: loading ? 'flex' : 'none' }]}>
-          <PacmanIndicator
-            color={colors['loader-color']}
-            size={128}
-            style={[styles.loaderContainer, { height: windowHeight }]}
-          />
-        </View>
-
-        <Text style={{ fontSize: 20, color: '#fff' }}>
-          {filteredItems.length} :{' '}
-          {JSON.stringify(items.length === filteredItems.length)}:{' '}
-          {items.length}
-        </Text>
-
-        <View
-          style={[
-            styles.HeaderIconsWrapper,
-            [{ display: !loading ? 'flex' : 'none' }],
-          ]}
-        >
-          <SearchPanel
-            onSearch={onSearch}
-            style={styles.searchButton}
-          />
-          <CustomModal />
-        </View>
-
-        <FlatList
-          style={styles.listItems}
-          data={filteredItems}
-          renderItem={ItemCard}
-          // ListHeaderComponent={renderHeader}
-          ListEmptyComponent={
-            <Text style={styles.warningText}>There is nothing</Text>
-          }
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              progressViewOffset={0}
-            />
-          }
-          onEndReachedThreshold={0.25}
-          // onEndReached={onUpdateEndList}
-          onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
+      > */}
+      <View style={[{ display: loading ? 'flex' : 'none' }]}>
+        <PacmanIndicator
+          color={colors['loader-color']}
+          size={128}
+          style={[styles.loaderContainer, { height: windowHeight }]}
         />
-      </LinearGradient>
-      {/* CONFLICT WITH Flat.list.onEndReached */}
+      </View>
+
+      {/* DEBUG START */}
+      {DEBUG_MENU && (
+        <Text style={{ fontSize: 20, color: '#fff' }}>
+          {'items: ' +
+            items.length +
+            ' filteredItems: ' +
+            filteredItems.length +
+            ' next start: ' +
+            nextItem.start}
+          {JSON.stringify(nextItem.start < 40 && !freezeUpdate)}
+        </Text>
+      )}
+      {/* DEBUG END */}
+      <View
+        style={[
+          styles.HeaderIconsWrapper,
+          [{ display: !loading ? 'flex' : 'none' }],
+        ]}
+      >
+        <SearchPanel
+          onSearch={onSearch}
+          onFreezeUpdate={onFreezeUpdate}
+          style={styles.searchButton}
+        />
+        <CustomModal />
+      </View>
+
+      {/* <View
+        style={styles.listContainer}
+        removeClippedSubviews
+      > */}
+      <FlatList
+        style={styles.listItems}
+        data={filteredItems}
+        renderItem={ItemCard}
+        ListEmptyComponent={
+          <Text style={styles.warningText}>There is nothing</Text>
+        }
+        refreshing={refreshing}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            progressViewOffset={0.25}
+          />
+        }
+        // onEndThreshold={1} // 1
+        onEndReachedThreshold={0.3} // 1 work
+        onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
+      />
+      {/* </View> */}
+
+      {/* </LinearGradient> */}
+      {/* CONFLICT wit FlattenList.onEndReached() */}
     </SafeAreaView>
   );
 }
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: colors['app-background'],
   },
   loaderContainer: {
@@ -175,10 +175,18 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
+  listContainer: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: colors['card-background'],
+  },
   HeaderIconsWrapper: {
+    // flex: 1,
     justifyContent: 'flex-end',
+    alignItems: 'baseline',
     width: '96%',
-    margin: 10,
+    marginTop: 40,
+    marginBottom: 20,
     flexDirection: 'row',
   },
   searchButton: {
@@ -190,16 +198,13 @@ const styles = StyleSheet.create({
     maxHeight: 200,
     padding: 10,
     color: colors['primary-light'],
-
-    // backgroundColor: colors['promotion-hot-dark'], //colors['primary-light'], //colors['primary-light-alpha'],
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
-    // width: '100%',
   },
   listItems: {
-    // flex: 10,
     width: '100%',
-    // marginTop: 60,
+    flex: 1,
+
+    // borderWidth: 3,
+    // borderColor: 'red',
   },
   warningText: {
     textAlign: 'center',

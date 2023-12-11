@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors['promotion-hot'], //colors['primary-light'], //colors['primary-light-alpha'],
     color: colors['primary-light'],
     padding: 15,
-    maxWidth: 100,
+    maxWidth: 120,
     maxHeight: 70,
     position: 'absolute',
     left: 0,

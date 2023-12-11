@@ -44,7 +44,7 @@ export const pizzaPromos = {
   bomb: 'https://neural.love/ai-art-generator/1ee7d75f-7455-68e6-a880-51fdc99c7591/a-bomb-is-inside-a-pizza-and-then-explodes-and-cracking-and-smashing-and-brokes-and-destroying-the-p',
   car1: 'https://neural.love/ai-art-generator/1ee864d1-f145-6608-9036-8d5af3ed8543/pizza-car-car-made-out-of-pizza-pizza-wheels-realistic',
   car2: 'https://neural.love/ai-art-generator/1ee8b10b-acb6-6e84-b261-51f9a11292d3/photorealistic-car-made-of-pizza',
-  car3: 'Free AI Art Generator: https://neural.love/ai-art-generator/1ee4c0da-e303-6052-b030-8d21c13c2819/volkswagen-beetle-in-tuscany-countryside-table-full-of-italian-cuisine-oil-olive-oil-wine-pizza',
+  car3: 'https://neural.love/ai-art-generator/1ee4c0da-e303-6052-b030-8d21c13c2819/volkswagen-beetle-in-tuscany-countryside-table-full-of-italian-cuisine-oil-olive-oil-wine-pizza',
   cat1: 'https://neural.love/ai-art-generator/1ee83201-1b4e-6b56-a9a4-f72da11243dc/black-cat-eating-pizza',
   cat2: 'https://neural.love/ai-art-generator/1ee82786-fd44-6fea-8390-cf8156d4b9a9/a-painting-of-a-cat-as-an-italian-pizza-baker-style-15yhmy0voocomig-mysterious',
   cat3: 'https://neural.love/ai-art-generator/1ee7fd17-584c-6356-8c6e-73482eaf69f7/a-flabby-anthro-orabge-persian-cat-in-chef-clothes-prepares-seafood-pizza-kiln-baked-pizza-high',
@@ -222,6 +222,31 @@ export const pizzaStaticPromoImages = [
   require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00009.jpg'),
   require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00010.jpg'),
   require('../../assets/imgs/pizza-nightcage-gen/pizza_promo_00011.jpg'),
+];
+export const pizzaStaticPromoImagesURL = [
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00001.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00002.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00003.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00004.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00005.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00006.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00007.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00008.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00009.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00010.jpg',
+  'https://raw.githubusercontent.com/DiHand79/imgs/e02f55fba9083560ab3c052d9e2661a8f27cfb3c/pizza_promo_00011.jpg',
+];
+
+export const pizzaStaticPromoImagesTheme = [
+  require('../../assets/imgs/pizza-promo/1.jpeg'),
+  require('../../assets/imgs/pizza-promo/2.jpeg'),
+  require('../../assets/imgs/pizza-promo/3.jpeg'),
+  require('../../assets/imgs/pizza-promo/4.jpeg'),
+  require('../../assets/imgs/pizza-promo/5.jpeg'),
+  require('../../assets/imgs/pizza-promo/6.jpeg'),
+  require('../../assets/imgs/pizza-promo/7.jpeg'),
+  require('../../assets/imgs/pizza-promo/8.jpeg'),
+  require('../../assets/imgs/pizza-promo/9.jpeg'),
 ];
 
 export const pizzaTags = [

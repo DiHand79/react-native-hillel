@@ -12,7 +12,7 @@ import { colors } from '../../common/colors/colors';
 import ClearSVG from './ClearIcon';
 import SearchSVG from './SearchIcon';
 
-export default function SearchPanel({ onSearch }) {
+export default function SearchPanel({ onSearch, onFreezeUpdate }) {
   const [isPressed, setIsPressed] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -27,8 +27,11 @@ export default function SearchPanel({ onSearch }) {
     setSearchText('');
   };
 
-  const onCollapsed = () => {
+  const onCollapse = () => {
     setIsCollapsed((prev) => !prev);
+    onFreezeUpdate((prev) => !prev);
+    onSearch('');
+    setSearchText('');
   };
 
   return (
@@ -75,7 +78,7 @@ export default function SearchPanel({ onSearch }) {
         ) : (
           <></>
         )}
-        <Text onPress={onCollapsed}>
+        <Text onPress={onCollapse}>
           <Image
             source={require('../../assets/imgs/icons/search.png')}
             style={styles.pngIcon}
