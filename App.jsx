@@ -168,7 +168,7 @@ export default function App() {
               progressViewOffset={0.5}
             />
           }
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.15}
           onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
         />
       </LinearGradient>
