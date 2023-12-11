@@ -41,33 +41,40 @@ export default function App() {
     }
   }, []);
 
-  const onRefresh = useCallback(() => {
-    if (nextItem.start < 15) {
-      setRefreshing(true);
-      setTimeout(() => {
-        const nextGettedItems = generateItems(nextItem.count, nextItem.start);
+  const onRefresh = () => {
+    // if (!refreshing && !freezeUpdate) {
+    setRefreshing(true);
+    const nextGettedItems = generateItems(nextItem.count, nextItem.start);
+    setTimeout(
+      (nextGettedItems) => {
         setItems((prev) => [...nextGettedItems, ...prev]);
         setNextItem((prev) => ({
-          ...prev,
           count: 1,
           start: prev.start + 1,
         }));
         setRefreshing(false);
-      }, 3000);
-    }
-  }, []);
+      },
+      3000,
+      nextGettedItems
+    );
+    // }
+  };
 
   const onUpdateEndList = ({ distanceFromEnd }) => {
     // console.warn('onUpdateEndList', distanceFromEnd);
-    if (nextItem.start < 15 && !freezeUpdate) {
+    if (!refreshing && !freezeUpdate && nextItem.start < 15) {
       // max 40
-      setRefreshing(true);
-      // setTimeout(() => {
+      // setRefreshing(true);
       const nextGettedItems = generateItems(5, nextItem.start);
-      setNextItem((prev) => ({ ...prev, start: prev.start + 5 }));
-      setItems((prev) => [...prev, ...nextGettedItems]);
-      setRefreshing(false);
-      // }, 500);
+      setTimeout(
+        (nextGettedItems) => {
+          setNextItem((prev) => ({ ...prev, start: prev.start + 5 }));
+          setItems((prev) => [...prev, ...nextGettedItems]);
+          setRefreshing(false);
+        },
+        500,
+        nextGettedItems
+      );
     }
     // else if (!freezeUpdate && nextItem.start > 14)
     //   Alert.alert('Sorry, End Pizza today.');
@@ -165,7 +172,7 @@ export default function App() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              progressViewOffset={0.5}
+              progressViewOffset={0.15}
             />
           }
           onEndReachedThreshold={0.15}
