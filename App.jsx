@@ -1,36 +1,91 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
   FlatList,
-  ScrollView,
   Text,
   Dimensions,
   View,
+  RefreshControl,
+  Alert,
+  ScrollView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
-import { itemsTemplate } from './common/templates/item-card';
+import { itemsTemplate, generateItems } from './common/templates/item-card';
 import { colors } from './common/colors/colors';
-import Card from './components/productViews/Card';
+import ItemCard from './components/productViews/ItemCard';
 import SearchPanel from './components/SearchPanel/SearchPanel';
 import CustomModal from './components/productViews/CustomModal';
 
+let DEBUG_MENU = true;
+
 export default function App() {
+  const [loading, setLoading] = useState(true);
+  const [nextItem, setNextItem] = useState({ count: 0, start: 0 });
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState(items);
+  const [refreshing, setRefreshing] = useState(false);
+  const [freezeUpdate, onFreezeUpdate] = useState(false);
 
-  const [loading, setLoading] = useState(true);
+  const windowHeight = Dimensions.get('window').height; // screen
 
   let isItemsLoaded = false;
   useEffect(() => {
     if (!isItemsLoaded) {
-      setItems(itemsTemplate);
-      setFilteredItems(itemsTemplate);
+      const firstGettedItems = generateItems(4, 0); // get first 5 pizzas from server :)
+      setItems(firstGettedItems);
+      setFilteredItems(firstGettedItems);
+      setNextItem({ count: 1, start: 4 });
       isItemsLoaded = true;
     }
   }, []);
 
+  const onRefresh = () => {
+    // if (!refreshing && !freezeUpdate) {
+    setRefreshing(true);
+    const nextGettedItems = generateItems(nextItem.count, nextItem.start);
+    setTimeout(
+      (nextGettedItems) => {
+        setItems((prev) => [...nextGettedItems, ...prev]);
+        setNextItem((prev) => ({
+          count: 1,
+          start: prev.start + 1,
+        }));
+        setRefreshing(false);
+      },
+      3000,
+      nextGettedItems
+    );
+    // }
+  };
+
+  const onUpdateEndList = ({ distanceFromEnd }) => {
+    // console.warn('onUpdateEndList', distanceFromEnd);
+    if (!refreshing && !freezeUpdate && nextItem.start < 15) {
+      // max 40
+      // setRefreshing(true);
+      const nextGettedItems = generateItems(5, nextItem.start);
+      setTimeout(
+        (nextGettedItems) => {
+          setNextItem((prev) => ({ ...prev, start: prev.start + 5 }));
+          setItems((prev) => [...prev, ...nextGettedItems]);
+          setRefreshing(false);
+        },
+        500,
+        nextGettedItems
+      );
+    }
+    // else if (!freezeUpdate && nextItem.start > 14)
+    //   Alert.alert('Sorry, End Pizza today.');
+  };
+
+  // add new getted from server pizzas to list
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
+  // simulate loader
   useEffect(() => {
     if (isItemsLoaded) {
       setTimeout(() => setLoading(false), 2000);
@@ -47,7 +102,19 @@ export default function App() {
     setFilteredItems(filtered);
   };
 
-  const windowHeight = Dimensions.get('window').height; // screen
+  // // not work
+  // const renderLoader = () => {
+  //   const windowHeight = Dimensions.get('window').height; // screen
+  //   return (
+  //     <View style={{ display: loading ? 'flex' : 'none' }}>
+  //       <PacmanIndicator
+  //         color={colors['loader-color']}
+  //         size={128}
+  //         style={[styles.loaderContainer, { height: windowHeight }]}
+  //       />
+  //     </View>
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,13 +122,29 @@ export default function App() {
         colors={colors['app-background-gradient']}
         style={styles.container}
       >
-        <View style={[{ display: loading ? 'flex' : 'none' }]}>
-          <PacmanIndicator
-            color={colors['loader-color']}
-            size={128}
-            style={[styles.loaderContainer, { height: windowHeight }]}
-          />
-        </View>
+        {/*  if used - break good work FlatList.onEndReached
+          <View style={{ display: loading ? 'flex' : 'none' }}>
+            <PacmanIndicator
+              color={colors['loader-color']}
+              size={128}
+              style={[styles.loaderContainer, { height: windowHeight }]}
+            />
+          </View>
+        */}
+
+        {/* DEBUG START */}
+        {DEBUG_MENU && (
+          <Text style={{ fontSize: 20, color: '#fff' }}>
+            {'items: ' +
+              items.length +
+              ' filteredItems: ' +
+              filteredItems.length +
+              ' next start: ' +
+              nextItem.start}
+            {JSON.stringify(nextItem.start < 40 && !freezeUpdate)}
+          </Text>
+        )}
+        {/* DEBUG END */}
 
         <View
           style={[
@@ -71,25 +154,29 @@ export default function App() {
         >
           <SearchPanel
             onSearch={onSearch}
+            onFreezeUpdate={onFreezeUpdate}
             style={styles.searchButton}
           />
-          <CustomModal>
-            <Text style={styles.openModalButton}>Press me</Text>
-          </CustomModal>
+          <CustomModal />
         </View>
 
         <FlatList
-          style={styles.listItems}
+          style={[styles.listItems, { display: loading ? 'none' : 'flex' }]}
           data={filteredItems}
-          renderItem={Card}
+          renderItem={ItemCard}
           ListEmptyComponent={
             <Text style={styles.warningText}>There is nothing</Text>
           }
-          // ListFooterComponent={
-          //   <CustomModal>
-          //     <Text style={styles.openModalButton}>Press me</Text>
-          //   </CustomModal>
-          // }
+          refreshing={refreshing}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressViewOffset={0.15}
+            />
+          }
+          onEndReachedThreshold={0.15}
+          onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
         />
       </LinearGradient>
     </SafeAreaView>
@@ -100,8 +187,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors['app-background'],
+    justifyContent: 'flex-start',
+    backgroundColor: colors['primary-dark'], //colors['app-background'],
   },
   loaderContainer: {
     flex: 1,
@@ -109,10 +196,18 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
+  listContainer: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: colors['card-background'],
+  },
   HeaderIconsWrapper: {
+    // flex: 1,
     justifyContent: 'flex-end',
+    alignItems: 'baseline',
     width: '96%',
-    margin: 10,
+    // marginTop: 40,
+    // marginBottom: 20,
     flexDirection: 'row',
   },
   searchButton: {
@@ -124,16 +219,13 @@ const styles = StyleSheet.create({
     maxHeight: 200,
     padding: 10,
     color: colors['primary-light'],
-
-    // backgroundColor: colors['promotion-hot-dark'], //colors['primary-light'], //colors['primary-light-alpha'],
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
-    // width: '100%',
   },
   listItems: {
-    // flex: 10,
+    flex: 1,
     width: '100%',
-    marginTop: 60,
+
+    // borderWidth: 3,
+    // borderColor: 'red',
   },
   warningText: {
     textAlign: 'center',

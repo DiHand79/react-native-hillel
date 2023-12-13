@@ -8,7 +8,7 @@ import { colors } from '../../common/colors/colors';
  *  FOR use with FlatList - input data ONLY named as 'item'
  *  AND set as  renderItem={Card} as simple function NOT <Component/>
  */
-export default function Card({ item }) {
+export default function ItemCard({ item }) {
   const { key } = item;
 
   return (

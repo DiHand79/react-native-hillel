@@ -5,13 +5,14 @@ import {
   Text,
   View,
   Pressable,
+  Image,
   TouchableWithoutFeedback,
 } from 'react-native';
 import { colors } from '../../common/colors/colors';
 import ClearSVG from './ClearIcon';
 import SearchSVG from './SearchIcon';
 
-export default function SearchPanel({ onSearch }) {
+export default function SearchPanel({ onSearch, onFreezeUpdate }) {
   const [isPressed, setIsPressed] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -26,8 +27,11 @@ export default function SearchPanel({ onSearch }) {
     setSearchText('');
   };
 
-  const onCollapsed = () => {
+  const onCollapse = () => {
     setIsCollapsed((prev) => !prev);
+    onFreezeUpdate((prev) => !prev);
+    onSearch('');
+    setSearchText('');
   };
 
   return (
@@ -74,20 +78,26 @@ export default function SearchPanel({ onSearch }) {
         ) : (
           <></>
         )}
-        <SearchSVG
-          style={[
-            styles.svgIcon,
-            {
-              fill: isPressed
-                ? colors['primary-dark-pressed']
-                : colors['primary-dark'],
-            },
-          ]}
-          width='24'
-          height='24'
-          stroke={colors['primary-dark-alpha']}
-          onPress={onCollapsed}
-        />
+        <Text onPress={onCollapse}>
+          <Image
+            source={require('../../assets/imgs/icons/search.png')}
+            style={styles.pngIcon}
+          />
+          {/* <SearchSVG
+            style={[
+              styles.svgIcon,
+              {
+                fill: isPressed
+                  ? colors['primary-dark-pressed']
+                  : colors['primary-dark'],
+              },
+            ]}
+            width='24'
+            height='24'
+            stroke={colors['primary-dark-alpha']}
+            // onPress={onCollapsed}
+          /> */}
+        </Text>
       </Pressable>
     </View>
   );
@@ -110,9 +120,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     flexDirection: 'row',
-    position: 'absolute',
-    top: 0,
-    zIndex: 1,
+    // position: 'absolute',
+    // top: 0,
+    // zIndex: 1,
 
     // borderWidth: 1,
     // borderColor: 'red',
@@ -124,6 +134,11 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'flex-end',
     flexDirection: 'row',
+  },
+  pngIcon: {
+    padding: 10,
+    width: 24,
+    height: 24,
   },
   svgIcon: {
     // // not work for SVG params - only as CSSImage container
