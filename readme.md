@@ -54,3 +54,9 @@ https://www.svgrepo.com/svg/221335/search-code
 CAROUSEL
 https://www.npmjs.com/package/react-native-swiper
 https://www.waldo.com/blog/react-native-swiper
+
+NAVIGATION
+https://reactnavigation.org/
+
+https://wix.github.io/react-native-navigation/docs/before-you-start/
+https://reactnative.dev/docs/navigation

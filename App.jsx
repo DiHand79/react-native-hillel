@@ -8,7 +8,6 @@ import {
   View,
   RefreshControl,
   Alert,
-  ScrollView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PacmanIndicator } from 'react-native-indicators';
@@ -42,7 +41,6 @@ export default function App() {
   }, []);
 
   const onRefresh = () => {
-    // if (!refreshing && !freezeUpdate) {
     setRefreshing(true);
     const nextGettedItems = generateItems(nextItem.count, nextItem.start);
     setTimeout(
@@ -57,14 +55,11 @@ export default function App() {
       3000,
       nextGettedItems
     );
-    // }
   };
 
   const onUpdateEndList = ({ distanceFromEnd }) => {
-    // console.warn('onUpdateEndList', distanceFromEnd);
     if (!refreshing && !freezeUpdate && nextItem.start < 15) {
       // max 40
-      // setRefreshing(true);
       const nextGettedItems = generateItems(5, nextItem.start);
       setTimeout(
         (nextGettedItems) => {
@@ -131,20 +126,6 @@ export default function App() {
             />
           </View>
         */}
-
-        {/* DEBUG START */}
-        {DEBUG_MENU && (
-          <Text style={{ fontSize: 20, color: '#fff' }}>
-            {'items: ' +
-              items.length +
-              ' filteredItems: ' +
-              filteredItems.length +
-              ' next start: ' +
-              nextItem.start}
-            {JSON.stringify(nextItem.start < 40 && !freezeUpdate)}
-          </Text>
-        )}
-        {/* DEBUG END */}
 
         <View
           style={[
