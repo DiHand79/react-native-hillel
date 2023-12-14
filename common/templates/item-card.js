@@ -11,7 +11,7 @@ import {
 import uids from '../templates/uids';
 import { colors } from '../colors/colors';
 
-const itemsTemplate = [
+export const itemsTemplate = [
   {
     key: uids[0],
     title: pizzaNamesArray[0].pizzaName_eng,
@@ -112,7 +112,7 @@ const itemsTemplate = [
   },
 ];
 
-function generateItems(count = 10, startIndex = 0) {
+export function generateItems(count = 10, startIndex = 0) {
   const PROMO_COLORS = ['#ee4200ff', '#478900', '#007cc3'];
   const PROMO_TITLE = [null, 'NEW', 'HOT', null, 'SALE', '50%', '2=1', null];
   let items = [];
@@ -144,7 +144,7 @@ function generateItems(count = 10, startIndex = 0) {
   return items;
 }
 
-function generatePromoItems(count = 11) {
+export function generatePromoItems(count = 11) {
   const PROMO_COLORS = ['#ee4200ff', '#478900', '#007cc3'];
   const PROMO_TITLE = [null, 'NEW', 'HOT', null, 'SALE', '50%', '2=1', null];
   let items = [];
@@ -174,5 +174,3 @@ function generatePromoItems(count = 11) {
   // console.log(items.length, ' ALL ITEMS: ', items);
   return items;
 }
-
-export { itemsTemplate, generateItems, generatePromoItems };
