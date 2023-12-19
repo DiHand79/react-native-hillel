@@ -6,8 +6,6 @@ import {
   Pressable,
   FlatList,
   Dimensions,
-  RefreshControl,
-  TouchableOpacity,
 } from 'react-native';
 import CustomShare from '../messages/CustomShare';
 import { useEffect, useState, useRef, useCallback } from 'react';

@@ -118,7 +118,6 @@ export function generateItems(count = 10, startIndex = 0) {
   let items = [];
   let init = startIndex ? startIndex : 0;
   let max = startIndex ? startIndex + count : count;
-  // console.warn(init, max);
   for (let i = init; i < max; i++) {
     const DESCRIPTION_INDEX = Math.floor(
       Math.random() * pizzaDescriptionsArray.length
@@ -136,11 +135,8 @@ export function generateItems(count = 10, startIndex = 0) {
       oldPrice: 1.1, // more proce now
       description: pizzaDescriptionsArray[DESCRIPTION_INDEX].pizza_eng,
     };
-    // console.log(DESCRIPTION_INDEX);
-
     items.push(cardTemplate);
   }
-  // console.log(items.length, ' ALL ITEMS: ', items);
   return items;
 }
 

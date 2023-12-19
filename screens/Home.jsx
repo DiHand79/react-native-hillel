@@ -30,13 +30,6 @@ export default function HomeScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const onDetailPress = () => {
-    navigation.navigate('Settings', {
-      ...detailData,
-      test: 'From Pizza Page',
-    });
-  };
-
   let isItemsLoaded = false;
   useEffect(() => {
     if (!isItemsLoaded) {
@@ -117,53 +110,14 @@ export default function HomeScreen(props) {
           loading={loading}
         />
 
-        <View style={styles.wrapper}>
-          <TouchableOpacity onPress={onDetailPress}>
-            <Text style={styles.warningText}>Home Screen</Text>
-          </TouchableOpacity>
-        </View>
-
         <FlatList
           style={[styles.listItems, { display: loading ? 'none' : 'flex' }]}
           data={filteredItems}
-          // renderItem={({ item }) => (
-          //   <TouchableOpacity
-          //     style={styles.warningText}
-          //     onPress={() => navigation.navigate('Detail', { test: 'WORK!' })}
-          //   >
-          //     <Text
-          //       style={{
-          //         fontSize: 20,
-          //         color: '#333',
-          //         padding: 20,
-          //         width: '96%',
-          //         backgroundColor: colors['card-background'],
-          //         shadowColor: '#000',
-          //         shadowOffset: {
-          //           width: 0,
-          //           height: 7,
-          //         },
-          //         shadowOpacity: 0.41,
-          //         shadowRadius: 9.11,
-          //         elevation: 14,
-          //       }}
-          //     >
-          //       {item.title}
-          //     </Text>
-          //   </TouchableOpacity>
-          // )}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.warningText}
-              // onPress={() => navigation.navigate('Detail', { test: 'WORK!' })}
-            >
-              <ItemCard
-                item={item}
-                onPress={() =>
-                  navigation.navigate('Detail', { test: 'WORK!' + item.title })
-                }
-              />
-            </TouchableOpacity>
+            <ItemCard
+              item={item}
+              onPress={() => navigation.navigate('Detail', { item })}
+            />
           )}
           // keyExtractor={({ item, index }) => console.warn(item, index)}
           onPress={(data) => console.warn('TEST onPress: ', data)}
@@ -240,7 +194,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: colors['warning-text'],
-    padding: 20,
-    marginTop: 20,
+    // padding: 20,
+    // marginTop: 20,
   },
 });

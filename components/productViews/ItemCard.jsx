@@ -1,15 +1,7 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Modal,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import ProductImage from '../product/productImage/ProductImage';
 import ProductDescriptions from '../product/ProductDescriptions';
 import ProductHandlers from '../product/ProductHandlers';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors } from '../../common/colors/colors';
 
 /**
@@ -18,20 +10,6 @@ import { colors } from '../../common/colors/colors';
  */
 export default function ItemCard({ item, onPress }) {
   const { key, test } = item;
-  // const bavigation = useNavigation();
-  // const route = useRoute();
-
-  // const onPress = (data) => {
-  //   this.onPress('up');
-  // };
-
-  // const onPizzaPress = () => {
-  //   console.warn('Image Press');
-  //   navigation.navigate('Settings', {
-  //     test: 'test',
-  //   });
-  //   // onPress={onPizzaPress}
-  // };
 
   return (
     <View

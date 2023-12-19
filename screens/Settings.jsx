@@ -22,11 +22,7 @@ export default function SettingsScreen(props) {
         style={styles.container}
       >
         <TouchableOpacity onPress={onPress}>
-          <Text style={styles.text}>
-            {JSON.stringify(route.params)}
-            {'\n\n'}
-            Settings Screen : {route.params.test}
-          </Text>
+          <Text style={styles.text}>Settings Screen :</Text>
         </TouchableOpacity>
       </LinearGradient>
     </SafeAreaView>
