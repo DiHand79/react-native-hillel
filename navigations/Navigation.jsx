@@ -6,9 +6,6 @@ import HomeScreen from '../screens/Home';
 import SettingsScreen from '../screens/Settings';
 import DetailItemScreen from '../screens/DetailItem';
 import ModalScreen from '../screens/Modal';
-import Home from '../assets/imgs/icons/home.svg';
-import Settings from '../assets/imgs/icons/settings.svg';
-
 import HomeIconSVG from './HomeIcon';
 import SettingsIconSVG from './SettingsIcon';
 
@@ -16,22 +13,28 @@ export function ScreensStack() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name='Home'
-        component={HomeScreen}
-      />
-      <Stack.Screen
-        name='Settings'
-        component={SettingsScreen}
-      />
-      <Stack.Screen
-        name='Detail'
-        component={DetailItemScreen}
-      />
-      <Stack.Screen
-        name='Modal'
-        component={ModalScreen}
-      />
+      <Stack.Group>
+        <Stack.Screen
+          name='Home'
+          component={HomeScreen}
+        />
+        <Stack.Screen
+          name='Settings'
+          component={SettingsScreen}
+        />
+        <Stack.Screen
+          name='Detail'
+          component={DetailItemScreen}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{ presentation: 'modal', headerShown: false }}
+      >
+        <Stack.Screen
+          name='Modal'
+          component={ModalScreen}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }

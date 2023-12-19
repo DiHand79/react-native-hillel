@@ -21,9 +21,6 @@ export default function CustomHeader({ onSearch, onFreezeUpdate, loading }) {
       />
 
       <Pressable onPress={() => navigation.navigate('Modal')}>
-        {/* {children} */}
-        {/* <Text style={styles.buttonOpenText}>Detail</Text> */}
-
         <Image
           style={styles.buttonOpen}
           source={require('../assets/favorite-red.png')}

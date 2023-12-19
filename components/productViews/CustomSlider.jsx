@@ -7,6 +7,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import CustomShare from '../messages/CustomShare';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { colors } from '../../common/colors/colors';
@@ -16,6 +17,7 @@ export default function CustomSlider({ data, title, showsButtons }) {
   const flatListRef = useRef();
   const [activeIndex, setActiveIndex] = useState(0);
   const screen = new Dimensions.get('screen');
+  const navigation = useNavigation();
 
   const mess = 'This great proposial Pizza very sexy and wait you';
 
@@ -113,6 +115,16 @@ export default function CustomSlider({ data, title, showsButtons }) {
 
   return (
     <View style={styles.wrapperSwiper}>
+      <View style={styles.btnBackWrapper}>
+        <Pressable>
+          <Text
+            onPress={() => navigation.goBack()}
+            style={styles.btnBack}
+          >
+            Back
+          </Text>
+        </Pressable>
+      </View>
       <Text
         style={styles.sliderTitle}
         numberOfLines={1}
@@ -153,8 +165,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    // borderWidth: 1,
-    // borderColor: 'red',
+  },
+  btnBackWrapper: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    // width: '100%',
+    borderWidth: 1,
+    borderColor: colors['primary-light-alpha'],
+  },
+  btnBack: {
+    padding: 10,
+    color: colors['primary-light'],
+    fontSize: 20,
+    zIndex: 2,
+    textAlign: 'right',
   },
   sliderTitle: {
     fontSize: 40,
@@ -164,9 +189,6 @@ const styles = StyleSheet.create({
     width: '90%',
     fontWeight: '900',
     color: colors['primary-light'],
-
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   slide: {
     flex: 1,
@@ -174,17 +196,11 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'top',
     alignItems: 'center',
-
-    // borderWidth: 10,
-    // borderColor: 'violet',
   },
   imageCropWrapper: {
     position: 'relative',
     justifyContent: 'space-between',
     alignItems: 'stretch',
-
-    // borderWidth: 3,
-    // borderColor: 'red',
   },
   slideTitleWrapper: {
     position: 'absolute',
@@ -193,12 +209,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     zIndex: 1,
-    // width: '100%',
     backgroundColor: colors['promotion-image-overlay-dark'], //colors['primary-dark'],
     justifyContent: 'flex-end',
-
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   slideTitle: {
     margin: 20,
@@ -206,9 +218,6 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     textAlign: 'right',
     color: colors['primary-light'],
-
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   slideImage: {
     height: 500, //'100%',
