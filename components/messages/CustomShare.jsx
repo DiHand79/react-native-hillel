@@ -1,7 +1,9 @@
 import { Alert, Share, View, Text, StyleSheet, Pressable } from 'react-native';
 import { colors } from '../../common/colors/colors';
 
-export default function CustomShare({ mess, title, img }) {
+const TEMPLATE_URL =
+  'https://mesta.com.ua/wp-content/uploads/2022/02/restoran-piccerija-pomodoro-pomodoro-na-akademika-glushko-v-odesse-1.png';
+export default function CustomShare({ mess, title, img = TEMPLATE_URL }) {
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -44,11 +46,6 @@ const styles = StyleSheet.create({
     left: 0,
     marginVertical: 20,
   },
-  // pressable: {
-  //   // padding: 20,
-  //   // borderWidth: 3,
-  //   // borderColor: 'red',
-  // },
   shareText: {
     color: colors['primary-light'],
     fontSize: 30,

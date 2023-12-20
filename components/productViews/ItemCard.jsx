@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Modal, Pressable } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import ProductImage from '../product/productImage/ProductImage';
 import ProductDescriptions from '../product/ProductDescriptions';
 import ProductHandlers from '../product/ProductHandlers';
@@ -8,15 +8,17 @@ import { colors } from '../../common/colors/colors';
  *  FOR use with FlatList - input data ONLY named as 'item'
  *  AND set as  renderItem={Card} as simple function NOT <Component/>
  */
-export default function ItemCard({ item }) {
-  const { key } = item;
+export default function ItemCard({ item, onPress }) {
+  const { key, test } = item;
 
   return (
     <View
       style={styles.cardWrapper}
       key={key}
     >
-      <ProductImage data={item} />
+      <TouchableOpacity onPress={onPress}>
+        <ProductImage data={item} />
+      </TouchableOpacity>
 
       <ProductDescriptions data={item} />
       <ProductHandlers data={item} />

@@ -51,20 +51,24 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
       >
         {!isCollapsed ? (
           <>
-            <ClearSVG
-              style={[
-                styles.svgIcon,
-                // {
-                //   stroke: isPressed
-                //     ? colors['primary-dark-pressed']
-                //     : colors['primary-dark'],
-                // },
-              ]}
-              width='24'
-              height='24'
-              stroke={colors['primary-dark-alpha']}
+            <Pressable
+              style={styles.clearIconWrapper}
               onPress={onClearSearch}
-            />
+            >
+              <ClearSVG
+                style={[
+                  styles.svgIcon,
+                  // {
+                  //   stroke: isPressed
+                  //     ? colors['primary-dark-pressed']
+                  //     : colors['primary-dark'],
+                  // },
+                ]}
+                width='24'
+                height='24'
+                stroke={colors['primary-dark-alpha']}
+              />
+            </Pressable>
             <TextInput
               style={styles.text}
               placeholder='Enter text for search:'
@@ -78,7 +82,10 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
         ) : (
           <></>
         )}
-        <Text onPress={onCollapse}>
+        <Pressable
+          onPress={onCollapse}
+          style={styles.seachIconWrapper}
+        >
           <Image
             source={require('../../assets/imgs/icons/search.png')}
             style={styles.pngIcon}
@@ -97,52 +104,54 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
             stroke={colors['primary-dark-alpha']}
             // onPress={onCollapsed}
           /> */}
-        </Text>
+        </Pressable>
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: colors['primary-dark-alpha'],
-    fontSize: 20,
-    marginRight: 20,
-    maxHeight: 90,
-    textAlign: 'left',
-    width: 'auto',
-    flex: 1,
-  },
   wrapperSearchPanel: {
-    marginVertical: 10,
-    width: '80%',
+    width: '90%',
     alignSelf: 'flex-end',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     flexDirection: 'row',
-    // position: 'absolute',
-    // top: 0,
-    // zIndex: 1,
 
     // borderWidth: 1,
     // borderColor: 'red',
   },
   wrapperSearchIcon: {
-    padding: 10,
     borderRadius: 3,
-    // width: '96%',
-    // alignItems: 'center',
     justifyContent: 'flex-end',
     flexDirection: 'row',
+    height: 40,
+  },
+  seachIconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVerticalas: 10,
+    paddingRight: 10,
   },
   pngIcon: {
-    padding: 10,
     width: 24,
     height: 24,
   },
+  clearIconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVerticalas: 10,
+  },
   svgIcon: {
-    // // not work for SVG params - only as CSSImage container
-    padding: 10,
-    // fill: colors['primary-light'],
+    // not work for SVG params - only as CSSImage container
+    fill: colors['primary-light'],
+  },
+  text: {
+    color: colors['primary-dark-alpha'],
+    fontSize: 20,
+    maxHeight: 90,
+    textAlign: 'left',
+    width: 'auto',
+    flex: 1,
   },
 });

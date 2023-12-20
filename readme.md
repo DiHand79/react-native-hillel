@@ -37,6 +37,7 @@ https://docs.expo.dev/versions/latest/sdk/lottie/
 https://lottiefiles.com/tutorials/how-to-handle-lottie-animations-in-react-native-fLbtTL0rOcU
 
 SVG
+https://docs.expo.dev/ui-programming/using-svgs/
 https://docs.expo.dev/versions/latest/sdk/svg/
 SVG convert to EXPO SVG Component
 https://jakearchibald.github.io/svgomg/
@@ -50,7 +51,17 @@ https://github.com/ant-design/ant-design-icons/blob/master/packages/icons-react-
 
 CODE SVG ICONS
 https://www.svgrepo.com/svg/221335/search-code
+https://icons8.com/icons/set/home
 
 CAROUSEL
 https://www.npmjs.com/package/react-native-swiper
 https://www.waldo.com/blog/react-native-swiper
+
+NAVIGATION
+https://reactnavigation.org/
+
+https://wix.github.io/react-native-navigation/docs/before-you-start/
+https://reactnative.dev/docs/navigation
+
+GUI for NAVIGATION
+https://reactnativepaper.com/

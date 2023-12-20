@@ -2,6 +2,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
   Modal,
   Pressable,
   TouchableOpacity,
@@ -50,12 +51,17 @@ export default function CustomModal({ children }) {
           </View>
         </View>
       </Modal>
-
       <Pressable
         onPress={() => setModalVisible(true)}
-        style={styles.buttonOpen}
+        // style={styles.buttonOpen}
       >
-        <Text style={styles.buttonOpenText}>Detail</Text>
+        {/* {children} */}
+        {/* <Text style={styles.buttonOpenText}>Detail</Text> */}
+        <Image
+          style={styles.buttonOpen}
+          source={require('../../assets/favorite-red.png')}
+          on
+        />
       </Pressable>
     </View>
   );
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   modalView: {
-    width: '100%',
+    // width: '100%',
     flex: 1,
     backgroundColor: colors['promotion-hot'],
 
@@ -97,26 +103,20 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
   buttonOpen: {
-    backgroundColor: colors['promotion-hot'], //colors['primary-light'], //colors['primary-light-alpha'],
+    width: 40,
+    height: 40,
+    // backgroundColor: colors['promotion-hot'], //colors['primary-light'], //colors['primary-light-alpha'],
     color: colors['primary-light'],
-    padding: 15,
-    maxWidth: 120,
-    maxHeight: 70,
     position: 'absolute',
-    left: 0,
-    top: 10,
+    right: -20,
+    top: 0,
+
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
   buttonOpenText: {
     color: colors['primary-light'],
-  },
-  buttonClose: {
-    backgroundColor: colors['promotion-hot'],
   },
   textStyle: {
     color: 'white',
