@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,16 +11,13 @@ import SettingsIconSVG from './SettingsIcon';
 
 export function ScreensStack() {
   const Stack = createNativeStackNavigator();
+
   return (
     <Stack.Navigator>
       <Stack.Group>
         <Stack.Screen
           name='Home'
           component={HomeScreen}
-        />
-        <Stack.Screen
-          name='Settings'
-          component={SettingsScreen}
         />
         <Stack.Screen
           name='Detail'
@@ -82,8 +79,33 @@ export function BottomTabsStack() {
 }
 
 export function Navigation() {
+  // const appState = useAppState();
+  // const prevStateRef = useRef({});
+  // const [prevState, setPrevState] = useState(prevStateRef?.current);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+    // ref={prevStateRef}
+    // onStateChange={({ index, routes }) => {
+    //   const currentTabIndex = index;
+    //   const currentRouteName = prevStateRef.current.getCurrentRoute().name;
+    //   setPrevState({
+    //     tabIndex: index,
+    //     routeName: currentRouteName,
+    //   });
+    //   // console.log('>>>> \t\tPREV STATE: \n', prevState);
+    //   console.log('CURRENT STATE: ', currentTabIndex, currentRouteName);
+    //   // prevStateRef({
+    //   //   tabIndex: index,
+    //   //   routeName: currentRouteName
+    //   // })
+
+    //   console.log('>>>> \t\tPREV STATE: \n', prevState);
+    //   // appState
+    //   //   ? navigation.navigate('Loader')
+    //   //   : navigation.navigate(prevState.routeName);
+    // }}
+    >
       {/* <ScreensStack /> */}
       <BottomTabsStack />
     </NavigationContainer>

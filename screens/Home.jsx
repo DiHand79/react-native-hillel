@@ -1,34 +1,28 @@
 import { useEffect, useState } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   SafeAreaView,
-  View,
   Text,
   FlatList,
-  TouchableOpacity,
   RefreshControl,
 } from 'react-native';
 import { itemsTemplate, generateItems } from '../common/templates/item-card';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomHeader from '../components/CustomHeader';
 import ItemCard from '../components/productViews/ItemCard';
 import { colors } from '../common/colors/colors';
+import { AppStateComponentWrapper } from '../hooks/useAppState';
 
-let DEBUG_MENU = true;
-
-export default function HomeScreen(props) {
+export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [nextItem, setNextItem] = useState({ count: 0, start: 0 });
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState(items);
   const [refreshing, setRefreshing] = useState(false);
   const [freezeUpdate, onFreezeUpdate] = useState(false);
-  const [detailData, setDetailData] = useState({});
 
   const navigation = useNavigation();
-  const route = useRoute();
 
   let isItemsLoaded = false;
   useEffect(() => {
@@ -98,8 +92,8 @@ export default function HomeScreen(props) {
     setFilteredItems(filtered);
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
+  function HomePage({ show }) {
+    return (
       <LinearGradient
         colors={colors['app-background-gradient']}
         style={styles.container}
@@ -109,7 +103,6 @@ export default function HomeScreen(props) {
           onFreezeUpdate={onFreezeUpdate}
           loading={loading}
         />
-
         <FlatList
           style={[styles.listItems, { display: loading ? 'none' : 'flex' }]}
           data={filteredItems}
@@ -136,7 +129,15 @@ export default function HomeScreen(props) {
           onEndReached={onUpdateEndList} // can CONFLICT with search bar - fixed
         />
       </LinearGradient>
-    </SafeAreaView>
+    );
+  }
+
+  return (
+    <AppStateComponentWrapper>
+      <SafeAreaView style={styles.container}>
+        <HomePage />
+      </SafeAreaView>
+    </AppStateComponentWrapper>
   );
 }
 
@@ -165,12 +166,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors['card-background'],
   },
   HeaderIconsWrapper: {
-    // flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'baseline',
     width: '96%',
-    // marginTop: 40,
-    // marginBottom: 20,
     flexDirection: 'row',
   },
   searchButton: {
@@ -186,15 +184,10 @@ const styles = StyleSheet.create({
   listItems: {
     flex: 1,
     width: '100%',
-
-    // borderWidth: 3,
-    // borderColor: 'red',
   },
   warningText: {
     textAlign: 'center',
     fontSize: 20,
     color: colors['warning-text'],
-    // padding: 20,
-    // marginTop: 20,
   },
 });

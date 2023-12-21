@@ -27,11 +27,11 @@ const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
     top: 10,
-    left: -25,
+    left: -35,
     backgroundColor: colors['promotion-new'],
     // minWidth: 50,
     // maxWidth: 200,
-    width: 100,
+    width: 120,
     // borderBottomRightRadius: '50%',
     // borderTopRightRadius: '50%',
     padding: 3,

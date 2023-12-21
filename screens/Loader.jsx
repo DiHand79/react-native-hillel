@@ -1,0 +1,35 @@
+import { StyleSheet, SafeAreaView, Image, Dimensions } from 'react-native';
+import { colors } from '../common/colors/colors';
+
+const screen = new Dimensions.get('screen');
+
+export default function LoaderScreen({ show }) {
+  return (
+    <SafeAreaView
+      style={styles.container}
+      // style={[styles.container, { display: show ? 'none' : 'flex' }]}
+    >
+      <Image
+        width={screen.width}
+        height={screen.height}
+        style={styles.appScreenImage}
+        source={require('../assets/imgs/logo/logo-pizza-eater.png')}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors['app-screen-background'],
+    zIndex: 5,
+  },
+  appScreenImage: {
+    flex: 1,
+    resizeMode: 'center',
+  },
+});

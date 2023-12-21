@@ -24,7 +24,6 @@ export default function CustomHeader({ onSearch, onFreezeUpdate, loading }) {
         <Image
           style={styles.buttonOpen}
           source={require('../assets/favorite-red.png')}
-          on
         />
       </Pressable>
     </View>
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     // backgroundColor: colors['promotion-hot'], //colors['primary-light'], //colors['primary-light-alpha'],
-    color: colors['primary-light'],
+    // color: colors['primary-light'],
     position: 'absolute',
     right: 0,
     top: 0,

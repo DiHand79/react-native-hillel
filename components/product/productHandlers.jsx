@@ -15,7 +15,6 @@ export default function ProductHandlers({ data }) {
           <Image
             style={styles.favoriteIcon}
             source={require('../../assets/favorite-red.png')}
-            on
           />
         ) : (
           <Image
