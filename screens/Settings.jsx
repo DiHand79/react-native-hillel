@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AppStateComponentWrapper } from '../hooks/useAppState';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../common/colors/colors';
 
@@ -28,11 +27,7 @@ export default function SettingsScreen(props) {
       </SafeAreaView>
     );
   }
-  return (
-    <AppStateComponentWrapper>
-      <SettingsPage />
-    </AppStateComponentWrapper>
-  );
+  return <SettingsPage />;
 }
 
 const styles = StyleSheet.create({

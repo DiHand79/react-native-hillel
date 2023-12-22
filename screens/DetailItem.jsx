@@ -9,7 +9,6 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { AppStateComponentWrapper } from '../hooks/useAppState';
 import CustomShare from '../components/messages/CustomShare';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../common/colors/colors';
@@ -30,7 +29,7 @@ export default function DetailItemScreen(props) {
   const { item } = route.params;
   const screen = new Dimensions.get('screen');
 
-  function DetsilPage() {
+  function DetailPage() {
     return (
       <SafeAreaView style={styles.container}>
         <LinearGradient
@@ -76,11 +75,7 @@ export default function DetailItemScreen(props) {
       </SafeAreaView>
     );
   }
-  return (
-    <AppStateComponentWrapper>
-      <DetsilPage />
-    </AppStateComponentWrapper>
-  );
+  return <DetailPage />;
 }
 
 const styles = StyleSheet.create({

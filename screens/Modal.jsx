@@ -4,7 +4,6 @@ import CustomSlider from '../components/productViews/CustomSlider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../common/colors/colors';
 import { generatePromoItems } from '../common/templates/item-card';
-import { AppStateComponentWrapper } from '../hooks/useAppState';
 
 export default function ModalScreen() {
   function ModalPage() {
@@ -25,11 +24,7 @@ export default function ModalScreen() {
       </SafeAreaView>
     );
   }
-  return (
-    <AppStateComponentWrapper>
-      <ModalPage />
-    </AppStateComponentWrapper>
-  );
+  return <ModalPage />;
 }
 
 const styles = StyleSheet.create({

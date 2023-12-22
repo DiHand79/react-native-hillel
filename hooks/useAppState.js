@@ -26,7 +26,6 @@ export function useAppState() {
 
 export function AppStateComponentWrapper({ children }) {
   let appState = useAppState();
-  console.warn('appState: ', appState);
 
   return (
     <View style={styles.wrapper}>{appState ? children : <LoaderScreen />}</View>
@@ -36,7 +35,8 @@ export function AppStateComponentWrapper({ children }) {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
