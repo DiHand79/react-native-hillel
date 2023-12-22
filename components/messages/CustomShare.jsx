@@ -42,9 +42,11 @@ const styles = StyleSheet.create({
   wrapper: {
     // flex: 1,
     position: 'absolute',
-    top: 0,
-    left: 0,
-    marginVertical: 20,
+    bottom: 0,
+    padding: 5,
+    // marginVertical: 20,
+    width: '100%',
+    backgroundColor: colors['primary-dark-alpha'], //colors['app-background'],
   },
   shareText: {
     color: colors['primary-light'],

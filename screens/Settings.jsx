@@ -5,27 +5,33 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native';
+import { AppStateComponentWrapper } from '../hooks/useAppState';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../common/colors/colors';
 
 export default function SettingsScreen(props) {
   const navigation = useNavigation();
-  const route = useRoute();
-
   const onPress = () => navigation.goBack(); //navigation.navigate('Home');
+
+  function SettingsPage() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <LinearGradient
+          colors={colors['app-background-gradient']}
+          style={styles.container}
+        >
+          <TouchableOpacity onPress={onPress}>
+            <Text style={styles.text}>Settings Screen :</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </SafeAreaView>
+    );
+  }
   return (
-    <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={colors['app-background-gradient']}
-        style={styles.container}
-      >
-        <TouchableOpacity onPress={onPress}>
-          <Text style={styles.text}>Settings Screen :</Text>
-        </TouchableOpacity>
-      </LinearGradient>
-    </SafeAreaView>
+    <AppStateComponentWrapper>
+      <SettingsPage />
+    </AppStateComponentWrapper>
   );
 }
 

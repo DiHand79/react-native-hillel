@@ -60,7 +60,6 @@ export default function CustomModal({ children }) {
         <Image
           style={styles.buttonOpen}
           source={require('../../assets/favorite-red.png')}
-          on
         />
       </Pressable>
     </View>

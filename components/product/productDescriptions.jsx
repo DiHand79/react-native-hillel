@@ -9,16 +9,27 @@ export default function ProductDescriptions({ data }) {
       <Text
         style={styles.title}
         numberOfLines={2}
+        maxFontSizeMultiplier={1}
       >
         {title}
       </Text>
 
       <View style={styles.wrapperPrice}>
-        <Text style={styles.price}>
-          <Text style={styles.priceTitle}>now:</Text> {price}
+        <Text
+          style={styles.price}
+          maxFontSizeMultiplier={1}
+        >
+          <Text
+            style={styles.priceTitle}
+            maxFontSizeMultiplier={1}
+          >
+            now:
+          </Text>{' '}
+          {price}
         </Text>
 
         <Text
+          maxFontSizeMultiplier={1}
           style={[
             styles.oldPrice,
             {
@@ -26,7 +37,12 @@ export default function ProductDescriptions({ data }) {
             },
           ]}
         >
-          <Text style={styles.oldPriceTitle}>old:</Text>{' '}
+          <Text
+            style={styles.oldPriceTitle}
+            maxFontSizeMultiplier={1}
+          >
+            old:
+          </Text>
           {Math.round(price * oldPrice * 100) / 100}
         </Text>
       </View>
@@ -34,6 +50,7 @@ export default function ProductDescriptions({ data }) {
       <Text
         style={styles.description}
         numberOfLines={2}
+        maxFontSizeMultiplier={1}
       >
         {description}
       </Text>
@@ -43,12 +60,12 @@ export default function ProductDescriptions({ data }) {
 const styles = StyleSheet.create({
   wrapper: {
     overflow: 'hidden',
-    flex: 4,
+    flex: 3,
     zIndex: 2,
   },
   title: {
     padding: 5,
-    flex: 2,
+    // flex: 1,
     fontSize: 16,
     fontWeight: '700',
     color: colors['product-title'],
@@ -57,9 +74,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginVertical: 15,
-    marginLeft: 5,
-    flex: 3,
+    padding: 10,
+    // flex: 3,
   },
   price: {
     fontSize: 30,
@@ -86,7 +102,7 @@ const styles = StyleSheet.create({
     maxHeight: 80,
     fontSize: 16,
     color: colors['product-description'],
-    flex: 5,
+    // flex: 5,
     zIndex: 0,
   },
 });

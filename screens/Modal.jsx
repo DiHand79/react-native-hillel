@@ -1,27 +1,34 @@
 import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
-import CustomModal from '../components/productViews/CustomModal';
+// import CustomModal from '../components/productViews/CustomModal';
 import CustomSlider from '../components/productViews/CustomSlider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../common/colors/colors';
 import { generatePromoItems } from '../common/templates/item-card';
+import { AppStateComponentWrapper } from '../hooks/useAppState';
 
-export default function ModalScreen(props) {
+export default function ModalScreen() {
+  function ModalPage() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <LinearGradient
+          colors={colors['app-background-gradient']}
+          style={styles.container}
+        >
+          <View style={styles.modalView}>
+            <CustomSlider
+              data={generatePromoItems(10)}
+              title={'SALE:'}
+              showsButtons={true}
+            />
+          </View>
+        </LinearGradient>
+      </SafeAreaView>
+    );
+  }
   return (
-    <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={colors['app-background-gradient']}
-        style={styles.container}
-      >
-        {/* <CustomModal /> */}
-        <View style={styles.modalView}>
-          <CustomSlider
-            data={generatePromoItems(10)}
-            title={'SALE:'}
-            showsButtons={true}
-          />
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
+    <AppStateComponentWrapper>
+      <ModalPage />
+    </AppStateComponentWrapper>
   );
 }
 

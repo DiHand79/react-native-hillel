@@ -234,7 +234,7 @@ const stylesPagginations = StyleSheet.create({
     bottom: 60,
   },
   pagginationItem: {
-    borderRadius: '50%',
+    // borderRadius: '50%', // crash to old Android version ~7
     margin: 3,
     width: 10,
     height: 10,

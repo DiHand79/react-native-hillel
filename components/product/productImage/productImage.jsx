@@ -2,11 +2,11 @@ import { View, StyleSheet, Image } from 'react-native';
 import ImagePromotion from './ImagePromotion';
 import { colors } from '../../../common/colors/colors';
 
-export default function ProductImage({ data }) {
+export default function ProductImage({ data, height = 150 }) {
   return (
     <View style={styles.imageWrapper}>
       <Image
-        style={styles.imagePromo}
+        style={[styles.imagePromo, { height: height }]}
         source={data.image}
       />
       {data.isPromo && (
@@ -21,7 +21,7 @@ export default function ProductImage({ data }) {
 
 const styles = StyleSheet.create({
   imageWrapper: {
-    flex: 2,
+    // flex: 1,
     position: 'relative',
     overflow: 'hidden',
     borderTopLeftRadius: 10,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   imagePromo: {
     resizeMode: 'cover',
-    width: 100,
+    width: '100%',
     height: 150,
     backgroundColor: colors['product-image-background'],
   },

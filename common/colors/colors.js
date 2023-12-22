@@ -6,6 +6,7 @@ export const colors = {
     '#e95612ff',
     '#f47018ff',
   ],
+  'app-screen-background': '#BB492E',
   'button-buy-text': '#EE4200ff',
   'card-background': '#f9fafaff',
   'loader-color': '#f49627ff',
