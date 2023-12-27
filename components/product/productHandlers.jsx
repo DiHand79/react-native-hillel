@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../common/colors/colors';
-import appState from '../../store';
+import orderStore from '../../store/Order';
 
 export default function ProductHandlers({ data }) {
   const [favorite, setFavorite] = useState(data.isFavorite);
@@ -11,13 +11,12 @@ export default function ProductHandlers({ data }) {
   };
 
   const onPressBuy = () => {
-    console.warn('Buy: ', appState());
-    console.warn('Buy: ', data.title + ' : ', data.price + '$');
+    // console.warn('Buy: ', data.title + ' : ', data.price + '$');
     /**
      *  get added data
      *  push to state
      */
-    // appState
+    orderStore.addOrder(data);
   };
 
   return (

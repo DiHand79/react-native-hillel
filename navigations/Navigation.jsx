@@ -10,7 +10,8 @@ import ModalScreen from '../screens/Modal';
 import HomeIconSVG from './HomeIcon';
 import SettingsIconSVG from './SettingsIcon';
 import BasketIconSVG from './BasketIcon';
-import appState from '../store';
+import orderStore from '../store/Order';
+import { observer } from 'mobx-react';
 
 const ICON_SIZE = 28; // TODO - get from appState
 export function ScreensStack() {
@@ -77,7 +78,7 @@ const TabIconBasket = (props) => {
           style={styles.iconBasketCounter}
           numberOfLines={1}
         >
-          {appState().length || 0}
+          {orderStore.orders.length}
         </Text>
       </View>
     </View>
@@ -142,14 +143,14 @@ const styles = StyleSheet.create({
     right: -ICON_SIZE / 2,
 
     borderWidth: 1,
-    borderColor: appState().length > 0 ? 'darkred' : '#777',
-    backgroundColor: appState().length > 0 ? 'red' : '#ccc',
+    borderColor: orderStore.orders.length > 0 ? 'darkred' : '#777',
+    backgroundColor: orderStore.orders.length > 0 ? 'red' : '#ccc',
   },
   iconBasketCounter: {
     minWidth: ICON_SIZE,
     minHeight: ICON_SIZE,
     lineHeight: ICON_SIZE,
-    color: appState().length > 0 ? 'white' : '#333',
+    color: orderStore.orders.length > 0 ? 'white' : '#333',
     fontSize: ICON_SIZE * 0.65,
     textAlign: 'center',
 

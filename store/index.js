@@ -1,8 +1,9 @@
 /**
  *  GENERAL STORE FILE
  */
-import OrderStore from './order';
+import orderStore from './Order';
+// console.log('OrderStore: ', OrderStore);
 
 export default function appState() {
-  return OrderStore;
+  return orderStore;
 }
