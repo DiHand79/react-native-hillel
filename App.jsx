@@ -1,3 +1,4 @@
+import { AppStateComponentWrapper } from './hooks/useAppState';
 import { Navigation } from './navigations/Navigation';
 import {
   MD3LightTheme as DefaultTheme,
@@ -16,7 +17,9 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <Navigation />
+      <AppStateComponentWrapper>
+        <Navigation />
+      </AppStateComponentWrapper>
     </PaperProvider>
   );
 }

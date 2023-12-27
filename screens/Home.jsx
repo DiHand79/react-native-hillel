@@ -12,7 +12,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CustomHeader from '../components/CustomHeader';
 import ItemCard from '../components/productViews/ItemCard';
 import { colors } from '../common/colors/colors';
-import { AppStateComponentWrapper } from '../hooks/useAppState';
 
 export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
@@ -133,11 +132,9 @@ export default function HomeScreen() {
   }
 
   return (
-    <AppStateComponentWrapper>
-      <SafeAreaView style={styles.container}>
-        <HomePage />
-      </SafeAreaView>
-    </AppStateComponentWrapper>
+    <SafeAreaView style={styles.container}>
+      <HomePage />
+    </SafeAreaView>
   );
 }
 
