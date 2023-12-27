@@ -7,11 +7,13 @@ import SettingsScreen from '../screens/Settings';
 import BasketScreen from '../screens/Basket';
 import DetailItemScreen from '../screens/DetailItem';
 import ModalScreen from '../screens/Modal';
-import HomeIconSVG from './HomeIcon';
-import SettingsIconSVG from './SettingsIcon';
-import BasketIconSVG from './BasketIcon';
+// import HomeIconSVG from './HomeIcon';
+// import SettingsIconSVG from './SettingsIcon';
+// import BasketIconSVG from './BasketIcon';
 import orderStore from '../store/Order';
-import { observer } from 'mobx-react';
+import TabIconHome from './TabIconHome';
+import TabIconSettings from './TabIconSettings';
+import TabIconBasket from './TabIconBasket';
 
 const ICON_SIZE = 28; // TODO - get from appState
 export function ScreensStack() {
@@ -40,50 +42,6 @@ export function ScreensStack() {
     </Stack.Navigator>
   );
 }
-
-const TabIconHome = (props) => {
-  return (
-    <HomeIconSVG
-      width={ICON_SIZE}
-      height={ICON_SIZE}
-      fill={props.focused ? '#333' : '#ccc'}
-    />
-  );
-};
-
-const TabIconSettings = (props) => {
-  return (
-    <SettingsIconSVG
-      width={ICON_SIZE}
-      height={ICON_SIZE}
-      fill={props.focused ? '#333' : '#ccc'}
-    />
-  );
-};
-
-/**
- *  get data from State
- *  update counter on icon (? TODO use SVG inline code OR simple clear components)
- */
-const TabIconBasket = (props) => {
-  return (
-    <View>
-      <BasketIconSVG
-        width={ICON_SIZE}
-        height={ICON_SIZE}
-        stroke={props.focused ? '#333' : '#ccc'}
-      />
-      <View style={styles.iconBasketWrapper}>
-        <Text
-          style={styles.iconBasketCounter}
-          numberOfLines={1}
-        >
-          {orderStore.orders.length}
-        </Text>
-      </View>
-    </View>
-  );
-};
 
 export function BottomTabsStack() {
   const Tab = createBottomTabNavigator();

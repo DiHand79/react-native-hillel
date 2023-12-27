@@ -12,8 +12,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CustomHeader from '../components/CustomHeader';
 import ItemCard from '../components/productViews/ItemCard';
 import { colors } from '../common/colors/colors';
+import { observer } from 'mobx-react';
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
   const [nextItem, setNextItem] = useState({ count: 0, start: 0 });
   const [items, setItems] = useState([]);
@@ -136,7 +137,9 @@ export default function HomeScreen() {
       <HomePage />
     </SafeAreaView>
   );
-}
+};
+
+export default observer(HomeScreen);
 
 const styles = StyleSheet.create({
   wrapper: {

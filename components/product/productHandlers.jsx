@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../common/colors/colors';
 import orderStore from '../../store/Order';
+import { observer } from 'mobx-react';
 
-export default function ProductHandlers({ data }) {
+const ProductHandlers = ({ data }) => {
   const [favorite, setFavorite] = useState(data.isFavorite);
 
   const onPressFavorite = () => {
@@ -46,7 +47,9 @@ export default function ProductHandlers({ data }) {
       </View>
     </View>
   );
-}
+};
+
+export default observer(ProductHandlers);
 
 const styles = StyleSheet.create({
   wrapper: {

@@ -15,15 +15,23 @@ class OrderStore {
 
   // todo add several similar pizza
   @action addOrder(data) {
-    // console.log('ADD ORDER: ', data);
+    let key = data.key;
+    const inStoreNames = this.orders
+      .reduce((res, curr) => [...res, curr.key], [])
+      .join('_');
+
+    if (inStoreNames.includes(data.key)) {
+      key = key + '_' + Math.random();
+      data = {
+        ...data,
+        key: key,
+      };
+    }
     this.orders = [...this.orders, data];
-    console.log(this.orders.length, ' ADD: ', this.orders);
   }
 
-  //  todo remove several similar pizza
   @action removeOrder(data) {
-    const filtered = this.orders.filter((order) => order.id === data.id);
-    console.log(filtered.length, ' REMOVE: ', filtered);
+    const filtered = this.orders.filter((order) => order.key !== data.key);
     this.orders = filtered;
   }
 }
