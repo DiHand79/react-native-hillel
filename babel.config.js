@@ -4,7 +4,12 @@ module.exports = function (api) {
     presets: ['babel-preset-expo'],
     env: {
       production: {
-        plugins: ['react-native-paper/babel'],
+        plugins: [
+          'react-native-paper/babel',
+          '@babel/plugin-proposal-class-properties',
+          '@babel/plugin-proposal-decorators',
+          { legacy: true },
+        ],
       },
     },
   };

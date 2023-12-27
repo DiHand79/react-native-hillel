@@ -4,10 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../screens/Home';
 import SettingsScreen from '../screens/Settings';
+import BasketScreen from '../screens/Basket';
 import DetailItemScreen from '../screens/DetailItem';
 import ModalScreen from '../screens/Modal';
 import HomeIconSVG from './HomeIcon';
 import SettingsIconSVG from './SettingsIcon';
+import BasketIconSVG from './BasketIcon';
 
 export function ScreensStack() {
   const Stack = createNativeStackNavigator();
@@ -56,6 +58,16 @@ const TabIconSettings = (props) => {
   );
 };
 
+const TabIconBasket = (props) => {
+  return (
+    <BasketIconSVG
+      width={20}
+      height={20}
+      stroke={props.focused ? '#333' : '#ccc'}
+    />
+  );
+};
+
 export function BottomTabsStack() {
   const Tab = createBottomTabNavigator();
   return (
@@ -73,6 +85,11 @@ export function BottomTabsStack() {
         name='Settings'
         component={SettingsScreen}
         options={{ headerShown: false, tabBarIcon: TabIconSettings }}
+      />
+      <Tab.Screen
+        name='Basket'
+        component={BasketScreen}
+        options={{ headerShown: false, tabBarIcon: TabIconBasket }}
       />
     </Tab.Navigator>
   );
