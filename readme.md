@@ -65,3 +65,9 @@ https://reactnative.dev/docs/navigation
 
 GUI for NAVIGATION
 https://reactnativepaper.com/
+
+STATE manager
+MobX
+https://mobx.js.org/installation.html
+mobx-react
+https://www.npmjs.com/package/mobx-react
