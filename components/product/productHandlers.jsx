@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../common/colors/colors';
+import appState from '../../store';
 
 export default function ProductHandlers({ data }) {
   const [favorite, setFavorite] = useState(data.isFavorite);
@@ -8,6 +9,17 @@ export default function ProductHandlers({ data }) {
   const onPressFavorite = () => {
     setFavorite(!favorite);
   };
+
+  const onPressBuy = () => {
+    console.warn('Buy: ', appState());
+    console.warn('Buy: ', data.title + ' : ', data.price + '$');
+    /**
+     *  get added data
+     *  push to state
+     */
+    // appState
+  };
+
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity onPress={onPressFavorite}>
@@ -25,11 +37,13 @@ export default function ProductHandlers({ data }) {
       </TouchableOpacity>
 
       <View style={styles.buyWrapper}>
-        <Image
-          style={styles.buyIcon}
-          source={require('../../assets/buy.png')}
-        />
-        <Text style={styles.buyText}>Buy</Text>
+        <TouchableOpacity onPress={onPressBuy}>
+          <Image
+            style={styles.buyIcon}
+            source={require('../../assets/buy.png')}
+          />
+          <Text style={styles.buyText}>Buy</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

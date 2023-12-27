@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,7 +10,9 @@ import ModalScreen from '../screens/Modal';
 import HomeIconSVG from './HomeIcon';
 import SettingsIconSVG from './SettingsIcon';
 import BasketIconSVG from './BasketIcon';
+import appState from '../store';
 
+const ICON_SIZE = 28; // TODO - get from appState
 export function ScreensStack() {
   const Stack = createNativeStackNavigator();
 
@@ -41,8 +43,8 @@ export function ScreensStack() {
 const TabIconHome = (props) => {
   return (
     <HomeIconSVG
-      width={20}
-      height={20}
+      width={ICON_SIZE}
+      height={ICON_SIZE}
       fill={props.focused ? '#333' : '#ccc'}
     />
   );
@@ -51,20 +53,34 @@ const TabIconHome = (props) => {
 const TabIconSettings = (props) => {
   return (
     <SettingsIconSVG
-      width={20}
-      height={20}
+      width={ICON_SIZE}
+      height={ICON_SIZE}
       fill={props.focused ? '#333' : '#ccc'}
     />
   );
 };
 
+/**
+ *  get data from State
+ *  update counter on icon (? TODO use SVG inline code OR simple clear components)
+ */
 const TabIconBasket = (props) => {
   return (
-    <BasketIconSVG
-      width={20}
-      height={20}
-      stroke={props.focused ? '#333' : '#ccc'}
-    />
+    <View>
+      <BasketIconSVG
+        width={ICON_SIZE}
+        height={ICON_SIZE}
+        stroke={props.focused ? '#333' : '#ccc'}
+      />
+      <View style={styles.iconBasketWrapper}>
+        <Text
+          style={styles.iconBasketCounter}
+          numberOfLines={1}
+        >
+          {appState().length || 0}
+        </Text>
+      </View>
+    </View>
   );
 };
 
@@ -105,8 +121,39 @@ export function Navigation() {
 }
 
 const styles = StyleSheet.create({
-  tabIcon: {
-    width: 28,
-    height: 28,
+  // tabIcon: {
+  //   width: 28,
+  //   height: 28,
+  // },
+  iconBasketWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    borderWidth: 1,
+    borderColor: 'blue',
+    position: 'relative',
+    borderRadius: '50%',
+    overflow: 'hidden',
+
+    maxWidth: 128,
+    position: 'absolute',
+    top: -ICON_SIZE / 2,
+    right: -ICON_SIZE / 2,
+
+    borderWidth: 1,
+    borderColor: appState().length > 0 ? 'darkred' : '#777',
+    backgroundColor: appState().length > 0 ? 'red' : '#ccc',
+  },
+  iconBasketCounter: {
+    minWidth: ICON_SIZE,
+    minHeight: ICON_SIZE,
+    lineHeight: ICON_SIZE,
+    color: appState().length > 0 ? 'white' : '#333',
+    fontSize: ICON_SIZE * 0.65,
+    textAlign: 'center',
+
+    // padding: 3,
+    zIndex: 5,
   },
 });
