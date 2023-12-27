@@ -7,13 +7,11 @@ import SettingsScreen from '../screens/Settings';
 import BasketScreen from '../screens/Basket';
 import DetailItemScreen from '../screens/DetailItem';
 import ModalScreen from '../screens/Modal';
-// import HomeIconSVG from './HomeIcon';
-// import SettingsIconSVG from './SettingsIcon';
-// import BasketIconSVG from './BasketIcon';
+import HomeIconSVG from './HomeIcon';
+import SettingsIconSVG from './SettingsIcon';
+import BasketIconSVG from './BasketIcon';
 import orderStore from '../store/Order';
-import TabIconHome from './TabIconHome';
-import TabIconSettings from './TabIconSettings';
-import TabIconBasket from './TabIconBasket';
+import { observer } from 'mobx-react';
 
 const ICON_SIZE = 28; // TODO - get from appState
 export function ScreensStack() {
@@ -43,7 +41,49 @@ export function ScreensStack() {
   );
 }
 
-export function BottomTabsStack() {
+//
+
+const TabIconHome = (props) => {
+  return (
+    <HomeIconSVG
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      fill={props.focused ? '#333' : '#ccc'}
+    />
+  );
+};
+
+const TabIconSettings = (props) => {
+  return (
+    <SettingsIconSVG
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      fill={props.focused ? '#333' : '#ccc'}
+    />
+  );
+};
+
+const TabIconBasket = (props) => {
+  return (
+    <View>
+      <BasketIconSVG
+        width={ICON_SIZE}
+        height={ICON_SIZE}
+        stroke={props.focused ? '#333' : '#ccc'}
+      />
+      {/* <View style={styles.iconBasketWrapper}>
+        <Text
+          style={styles.iconBasketCounter}
+          numberOfLines={1}
+        >
+          {orderStore.orders.length}
+        </Text>
+      </View> */}
+    </View>
+  );
+};
+
+const BottomTabsStack = observer(() => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
@@ -64,20 +104,28 @@ export function BottomTabsStack() {
       <Tab.Screen
         name='Basket'
         component={BasketScreen}
-        options={{ headerShown: false, tabBarIcon: TabIconBasket }}
+        options={{
+          headerShown: false,
+          tabBarIcon: TabIconBasket,
+          tabBarBadge: orderStore.orders.length,
+        }}
       />
     </Tab.Navigator>
   );
-}
+});
 
-export function Navigation() {
+//
+
+const Navigation = () => {
   return (
     <NavigationContainer>
       {/* <ScreensStack /> */}
       <BottomTabsStack />
     </NavigationContainer>
   );
-}
+};
+
+export default observer(Navigation);
 
 const styles = StyleSheet.create({
   // tabIcon: {

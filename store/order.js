@@ -8,6 +8,7 @@ import {
 
 class OrderStore {
   @observable orders;
+
   constructor() {
     this.orders = [];
     makeObservable(this);
@@ -33,6 +34,10 @@ class OrderStore {
   @action removeOrder(data) {
     const filtered = this.orders.filter((order) => order.key !== data.key);
     this.orders = filtered;
+  }
+
+  @action clearAll() {
+    this.orders = [];
   }
 }
 

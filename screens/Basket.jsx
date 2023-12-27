@@ -20,8 +20,64 @@ const BasketScreen = (props) => {
    */
 
   function onRemoveItem(data) {
-    console.log('ON REMOVE : ', data);
     orderStore.removeOrder(data);
+  }
+
+  function onConfirm() {
+    orderStore.clearAll();
+  }
+
+  function ItemsTable() {
+    const Table = [
+      <View
+        style={styles.itemLine}
+        key={Math.random()}
+      >
+        <Text
+          style={styles.titleName}
+          key={Math.random()}
+        >
+          Pizza name
+        </Text>
+        <Text
+          style={styles.titlePrice}
+          key={Math.random()}
+        >
+          Price
+        </Text>
+      </View>,
+    ];
+
+    const Items = orderStore.orders.map((order) => {
+      return (
+        <View
+          style={styles.itemLine}
+          key={order.key}
+        >
+          <Text
+            style={styles.name}
+            key={order.id}
+            numberOfLines={3}
+          >
+            {order.title} :
+          </Text>
+          <Text
+            style={styles.price}
+            key={order.id}
+          >
+            {order.price}
+          </Text>
+          <TouchableOpacity
+            style={styles.itemButton}
+            onPress={() => onRemoveItem(order)}
+          >
+            <Text style={styles.itemButtonText}>X</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    });
+
+    return [...Table, Items];
   }
 
   return (
@@ -33,34 +89,7 @@ const BasketScreen = (props) => {
         <Text style={styles.title}>SUMMARY ORDER INFO:</Text>
         <ScrollView>
           {orderStore.orders.length ? (
-            orderStore.orders.map((order) => {
-              return (
-                <View
-                  style={styles.itemLine}
-                  key={order.key}
-                >
-                  <Text
-                    style={styles.name}
-                    key={order.id}
-                    numberOfLines={3}
-                  >
-                    {order.title} :
-                  </Text>
-                  <Text
-                    style={styles.price}
-                    key={order.id}
-                  >
-                    {order.price}
-                  </Text>
-                  <TouchableOpacity
-                    style={styles.itemButton}
-                    onPress={() => onRemoveItem(order)}
-                  >
-                    <Text style={styles.itemButtonText}>X</Text>
-                  </TouchableOpacity>
-                </View>
-              );
-            })
+            ItemsTable()
           ) : (
             <View style={styles.noItems}>
               <Text
@@ -75,6 +104,14 @@ const BasketScreen = (props) => {
         <Text style={styles.sum}>
           Summ: {orderStore.orders.reduce((sum, curr) => sum + curr.price, 0)}$
         </Text>
+
+        {orderStore.orders.length > 0 && (
+          <View style={styles.confirmWrapper}>
+            <TouchableOpacity onPress={onConfirm}>
+              <Text style={styles.confirmText}>Confirm</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </LinearGradient>
     </SafeAreaView>
   );
@@ -106,6 +143,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: colors['primary-light-alpha'],
+  },
+  titleName: {
+    width: '75%',
+    fontSize: 20,
+    textAlign: 'left',
+    color: '#fff',
+  },
+  titlePrice: {
+    width: '25%',
+    fontSize: 20,
+    textAlign: 'left',
+    color: '#fff',
   },
   name: {
     width: '75%',
@@ -143,5 +192,18 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: '#fff',
     backgroundColor: '#ffffff50',
+  },
+  confirmWrapper: {
+    width: '100%',
+    padding: 14,
+    fontSize: 24,
+    fontWeight: '700',
+    textAlign: 'center',
+    backgroundColor: colors['promotion-hot'],
+  },
+  confirmText: {
+    fontSize: 30,
+    textAlign: 'center',
+    color: colors['primary-light'],
   },
 });

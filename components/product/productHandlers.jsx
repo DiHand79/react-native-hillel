@@ -12,11 +12,6 @@ const ProductHandlers = ({ data }) => {
   };
 
   const onPressBuy = () => {
-    // console.warn('Buy: ', data.title + ' : ', data.price + '$');
-    /**
-     *  get added data
-     *  push to state
-     */
     orderStore.addOrder(data);
   };
 

@@ -1,5 +1,5 @@
 import { AppStateComponentWrapper } from './hooks/useAppState';
-import { Navigation } from './navigations/Navigation';
+import Navigation from './navigations/Navigation';
 import {
   MD3LightTheme as DefaultTheme,
   PaperProvider,
