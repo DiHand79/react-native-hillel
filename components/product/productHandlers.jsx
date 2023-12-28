@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../common/colors/colors';
+import orderStore from '../../store/Order';
+import { observer } from 'mobx-react';
 
-export default function ProductHandlers({ data }) {
+const ProductHandlers = ({ data }) => {
   const [favorite, setFavorite] = useState(data.isFavorite);
 
   const onPressFavorite = () => {
     setFavorite(!favorite);
   };
+
+  const onPressBuy = () => {
+    orderStore.addOrder(data);
+  };
+
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity onPress={onPressFavorite}>
@@ -25,15 +32,19 @@ export default function ProductHandlers({ data }) {
       </TouchableOpacity>
 
       <View style={styles.buyWrapper}>
-        <Image
-          style={styles.buyIcon}
-          source={require('../../assets/buy.png')}
-        />
-        <Text style={styles.buyText}>Buy</Text>
+        <TouchableOpacity onPress={onPressBuy}>
+          <Image
+            style={styles.buyIcon}
+            source={require('../../assets/buy.png')}
+          />
+          <Text style={styles.buyText}>Buy</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
+
+export default observer(ProductHandlers);
 
 const styles = StyleSheet.create({
   wrapper: {
