@@ -71,3 +71,6 @@ MobX
 https://mobx.js.org/installation.html
 mobx-react
 https://www.npmjs.com/package/mobx-react
+
+ANIMATION
+https://docs.swmansion.com/react-native-reanimated/

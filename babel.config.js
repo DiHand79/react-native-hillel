@@ -8,6 +8,7 @@ module.exports = function (api) {
           'react-native-paper/babel',
           '@babel/plugin-proposal-class-properties',
           '@babel/plugin-proposal-decorators',
+          'react-native-reanimated/plugin',
           { legacy: true },
         ],
       },

@@ -12,10 +12,20 @@ import { colors } from '../../common/colors/colors';
 import ClearSVG from './ClearIcon';
 import SearchSVG from './SearchIcon';
 
-export default function SearchPanel({ onSearch, onFreezeUpdate }) {
-  const [isPressed, setIsPressed] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [isCollapsed, setIsCollapsed] = useState(true);
+/**
+ *  TODO - move to appState search text
+ */
+export default function SearchPanel({
+  onSearch,
+  onFreezeUpdate,
+  searchText = '',
+  setSearchText,
+  isCollapsed,
+  setIsCollapsed,
+}) {
+  // const [isPressed, setIsPressed] = useState(false);
+  // const [searchText, setSearchText] = useState('');
+  // const [isCollapsed, setIsCollapsed] = useState(!searchText.length && true);
 
   const onTextChange = (e) => {
     onSearch(e);
@@ -27,17 +37,24 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
     setSearchText('');
   };
 
+  console.log('isCollapsed: ', isCollapsed, !searchText.length);
+  console.log('searchText: ', searchText);
   const onCollapse = () => {
-    setIsCollapsed((prev) => !prev);
-    onFreezeUpdate((prev) => !prev);
-    onSearch('');
-    setSearchText('');
+    setIsCollapsed((prev) => {
+      if (!prev) {
+        onFreezeUpdate((prev) => !prev);
+        onSearch('');
+        setSearchText('');
+      }
+      return !prev;
+    });
   };
 
   return (
     <View style={styles.wrapperSearchPanel}>
       <Pressable
-        onPress={() => setIsPressed((prev) => !prev)}
+        // onPress={() => setIsPressed((prev) => !prev)}
+        // onPress={onCollapse}
         style={({ pressed }) => [
           styles.wrapperSearchIcon,
           {
@@ -46,6 +63,8 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
               : colors['primary-light'],
             width: isCollapsed ? 40 : '100%',
             zIindex: isCollapsed ? 1 : 10,
+            borderWidth: 1,
+            borderColor: 'magenta',
           },
         ]}
       >

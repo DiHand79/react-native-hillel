@@ -4,9 +4,18 @@ import SearchPanel from './searchPanel/SearchPanel';
 import { colors } from '../common/colors/colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-export default function CustomHeader({ onSearch, onFreezeUpdate, loading }) {
+export default function CustomHeader({
+  onSearch,
+  onFreezeUpdate,
+  loading,
+  searchText,
+  setSearchText,
+  isCollapsed,
+  setIsCollapsed,
+}) {
   const navigation = useNavigation();
   const route = useRoute();
+  // const [search, setSearch] = useState('');
 
   return (
     <View
@@ -18,6 +27,10 @@ export default function CustomHeader({ onSearch, onFreezeUpdate, loading }) {
       <SearchPanel
         onSearch={onSearch}
         onFreezeUpdate={onFreezeUpdate}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        isCollapsed={isCollapsed}
+        setIsCollapsed={setIsCollapsed}
       />
 
       <Pressable onPress={() => navigation.navigate('Modal')}>
