@@ -74,3 +74,4 @@ https://www.npmjs.com/package/mobx-react
 
 ANIMATION
 https://docs.swmansion.com/react-native-reanimated/
+!!! INSTALL !!!>>> npx expo install react-native-reanimated

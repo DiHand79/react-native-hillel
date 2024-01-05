@@ -8,14 +8,13 @@ export default function CustomHeader({
   onSearch,
   onFreezeUpdate,
   loading,
-  searchText,
-  setSearchText,
-  isCollapsed,
-  setIsCollapsed,
+  // searchText,
+  // setSearchText,
+  // isCollapsed,
+  // setIsCollapsed,
 }) {
   const navigation = useNavigation();
   const route = useRoute();
-  // const [search, setSearch] = useState('');
 
   return (
     <View
@@ -27,10 +26,10 @@ export default function CustomHeader({
       <SearchPanel
         onSearch={onSearch}
         onFreezeUpdate={onFreezeUpdate}
-        searchText={searchText}
-        setSearchText={setSearchText}
-        isCollapsed={isCollapsed}
-        setIsCollapsed={setIsCollapsed}
+        // searchText={searchText}
+        // setSearchText={setSearchText}
+        // isCollapsed={isCollapsed}
+        // setIsCollapsed={setIsCollapsed}
       />
 
       <Pressable onPress={() => navigation.navigate('Modal')}>

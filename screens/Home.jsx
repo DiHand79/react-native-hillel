@@ -21,8 +21,9 @@ const HomeScreen = () => {
   const [filteredItems, setFilteredItems] = useState(items);
   const [refreshing, setRefreshing] = useState(false);
   const [freezeUpdate, onFreezeUpdate] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [isCollapsed, setIsCollapsed] = useState(!searchText.length && true);
+
+  // const [searchText, setSearchText] = useState('');
+  // const [isCollapsed, setIsCollapsed] = useState(!searchText.length && true);
 
   const navigation = useNavigation();
 
@@ -104,10 +105,10 @@ const HomeScreen = () => {
           onSearch={onSearch}
           onFreezeUpdate={onFreezeUpdate}
           loading={loading}
-          searchText={searchText}
-          setSearchText={setSearchText}
-          isCollapsed={isCollapsed}
-          setIsCollapsed={setIsCollapsed}
+          // searchText={searchText}
+          // setSearchText={setSearchText}
+          // isCollapsed={isCollapsed}
+          // setIsCollapsed={setIsCollapsed}
         />
         <FlatList
           style={[styles.listItems, { display: loading ? 'none' : 'flex' }]}
