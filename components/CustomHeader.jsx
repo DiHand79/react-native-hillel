@@ -3,6 +3,7 @@ import SearchPanel from './searchPanel/SearchPanel';
 
 import { colors } from '../common/colors/colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Animated from 'react-native-reanimated';
 
 export default function CustomHeader({
   onSearch,

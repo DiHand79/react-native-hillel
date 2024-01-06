@@ -40,12 +40,6 @@ export default function SearchPanel({
   const [searchText, setSearchText] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  // const scaleValue = useSharedValue(0);
-  // const bothAnimation = useAnimatedStyle(() => ({
-  //   width: interpolate(scaleValue.value, 0, 100),
-  //   height: interpolate(scaleValue.value, 0, 40),
-  // }));
-
   const onTextChange = (e) => {
     onSearch(e);
     setSearchText(e);

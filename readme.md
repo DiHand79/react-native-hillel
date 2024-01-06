@@ -75,3 +75,6 @@ https://www.npmjs.com/package/mobx-react
 ANIMATION
 https://docs.swmansion.com/react-native-reanimated/
 !!! INSTALL !!!>>> npx expo install react-native-reanimated
+npx expo install react-native-reanimated @babel/plugin-proposal-decorators babel-plugin-transform-decorators-legacy // for fix conflict
+
+run: npm run start --clear-cache
