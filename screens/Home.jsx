@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   RefreshControl,
+  View,
 } from 'react-native';
 import { itemsTemplate, generateItems } from '../common/templates/item-card';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -13,6 +14,23 @@ import CustomHeader from '../components/CustomHeader';
 import ItemCard from '../components/productViews/ItemCard';
 import { colors } from '../common/colors/colors';
 import { observer } from 'mobx-react';
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
+
+const AnimatedHeader = Animated.createAnimatedComponent(
+  React.forwardRef((props, ref) => {
+    return (
+      <CustomHeader
+        // ref={ref}
+        {...props}
+      />
+    );
+  })
+);
 
 const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -24,6 +42,31 @@ const HomeScreen = () => {
 
   // const [searchText, setSearchText] = useState('');
   // const [isCollapsed, setIsCollapsed] = useState(!searchText.length && true);
+  // const [isCollapsed, setIsCollapsed] = useState(true);
+
+  /**
+   *  ANIMATION
+   */
+  const scrollY = useSharedValue(0);
+  // const animateHeaderStyle = useAnimatedStyle(() => ({
+  //   height: interpolate(scaleHeaderValue, 0, 40),
+  //   opacity: scaleHeaderValue.value,
+  //   overflow: 'hidden',
+  // }));
+  const animateHeaderStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      scrollY.value,
+      [0, 100], // Scroll range for animation start and end
+      [40, 0], // Height interpolation from 40 to 0
+      Extrapolate.CLAMP
+    );
+
+    return {
+      height,
+      opacity: height / 40, // Opacity changes with height
+      overflow: 'hidden',
+    };
+  });
 
   const navigation = useNavigation();
 
@@ -95,21 +138,32 @@ const HomeScreen = () => {
     setFilteredItems(filtered);
   };
 
+  const onItemsScroll = (e) => {
+    scrollY.value = e.nativeEvent.contentOffset.y;
+  };
+
   function HomePage({ show }) {
     return (
       <LinearGradient
         colors={colors['app-background-gradient']}
         style={styles.container}
       >
-        <CustomHeader
+        <AnimatedHeader
+          style={animateHeaderStyle}
           onSearch={onSearch}
           onFreezeUpdate={onFreezeUpdate}
           loading={loading}
+        >
+          <CustomHeader
+          // onSearch={onSearch}
+          // onFreezeUpdate={onFreezeUpdate}
+          // loading={loading}
           // searchText={searchText}
           // setSearchText={setSearchText}
           // isCollapsed={isCollapsed}
           // setIsCollapsed={setIsCollapsed}
-        />
+          />
+        </AnimatedHeader>
         <FlatList
           style={[styles.listItems, { display: loading ? 'none' : 'flex' }]}
           data={filteredItems}
@@ -121,6 +175,8 @@ const HomeScreen = () => {
           )}
           // keyExtractor={({ item, index }) => console.warn(item, index)}
           onPress={(data) => console.warn('TEST onPress: ', data)}
+          onScroll={onItemsScroll}
+          scrollEventThrottle={16} // Adjust as needed for performance
           ListEmptyComponent={
             <Text style={styles.warningText}>There is nothing</Text>
           }

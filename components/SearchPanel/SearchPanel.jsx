@@ -57,7 +57,7 @@ export default function SearchPanel({
           onFreezeUpdate((prev) => !prev);
           onSearch('');
           setSearchText('');
-        }, DURATION);
+        }, DURATION * 5);
       }
       return !prev;
     });
