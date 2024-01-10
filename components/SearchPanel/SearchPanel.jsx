@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -8,12 +7,36 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
+import Animated, {
+  withSpring,
+  StretchInX,
+  StretchOutX,
+  ZoomIn,
+  ZoomOut,
+  Easing,
+  Keyframe,
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  interpolate,
+} from 'react-native-reanimated';
 import { colors } from '../../common/colors/colors';
 import ClearSVG from './ClearIcon';
 import SearchSVG from './SearchIcon';
+import { useState } from 'react';
 
-export default function SearchPanel({ onSearch, onFreezeUpdate }) {
-  const [isPressed, setIsPressed] = useState(false);
+/**
+ *  TODO - move to appState search text
+ */
+let DURATION = 350;
+export default function SearchPanel({
+  onSearch,
+  onFreezeUpdate,
+  // searchText = '',
+  // setSearchText,
+  // isCollapsed,
+  // setIsCollapsed,
+}) {
   const [searchText, setSearchText] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -28,60 +51,68 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
   };
 
   const onCollapse = () => {
-    setIsCollapsed((prev) => !prev);
-    onFreezeUpdate((prev) => !prev);
-    onSearch('');
-    setSearchText('');
+    setIsCollapsed((prev) => {
+      if (!prev) {
+        setTimeout(() => {
+          onFreezeUpdate((prev) => !prev);
+          onSearch('');
+          setSearchText('');
+        }, DURATION * 5);
+      }
+      return !prev;
+    });
   };
 
   return (
     <View style={styles.wrapperSearchPanel}>
+      {!isCollapsed && (
+        <Animated.View
+          style={styles.searchInputWrapper}
+          entering={StretchInX.duration(DURATION).easing(Easing.ease)}
+          exiting={StretchOutX.duration(DURATION).easing(Easing.ease)}
+        >
+          <Pressable
+            style={styles.clearIconWrapper}
+            onPress={onClearSearch}
+          >
+            <ClearSVG
+              style={[
+                styles.svgIcon,
+                // {
+                //   stroke: isPressed
+                //     ? colors['primary-dark-pressed']
+                //     : colors['primary-dark'],
+                // },
+              ]}
+              width='24'
+              height='24'
+              stroke={colors['primary-dark-alpha']}
+            />
+          </Pressable>
+
+          <TextInput
+            style={styles.text}
+            placeholder='Enter text for search:'
+            onChangeText={onTextChange}
+            maxLength={100}
+            multiline={true}
+            numberOfLines={3}
+            value={searchText}
+          />
+        </Animated.View>
+      )}
+
       <Pressable
-        onPress={() => setIsPressed((prev) => !prev)}
         style={({ pressed }) => [
-          styles.wrapperSearchIcon,
+          styles.wrapperSearchIconCollapsed,
           {
             backgroundColor: pressed
               ? colors['primary-light-pressed']
               : colors['primary-light'],
-            width: isCollapsed ? 40 : '100%',
             zIindex: isCollapsed ? 1 : 10,
           },
         ]}
       >
-        {!isCollapsed ? (
-          <>
-            <Pressable
-              style={styles.clearIconWrapper}
-              onPress={onClearSearch}
-            >
-              <ClearSVG
-                style={[
-                  styles.svgIcon,
-                  // {
-                  //   stroke: isPressed
-                  //     ? colors['primary-dark-pressed']
-                  //     : colors['primary-dark'],
-                  // },
-                ]}
-                width='24'
-                height='24'
-                stroke={colors['primary-dark-alpha']}
-              />
-            </Pressable>
-            <TextInput
-              style={styles.text}
-              placeholder='Enter text for search:'
-              onChangeText={onTextChange}
-              maxLength={100}
-              multiline={true}
-              numberOfLines={3}
-              value={searchText}
-            />
-          </>
-        ) : (
-          <></>
-        )}
         <Pressable
           onPress={onCollapse}
           style={styles.seachIconWrapper}
@@ -113,19 +144,35 @@ export default function SearchPanel({ onSearch, onFreezeUpdate }) {
 const styles = StyleSheet.create({
   wrapperSearchPanel: {
     width: '90%',
-    alignSelf: 'flex-end',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'flex-end',
     flexDirection: 'row',
 
     // borderWidth: 1,
     // borderColor: 'red',
   },
-  wrapperSearchIcon: {
+  wrapperSearchIconCollapsed: {
     borderRadius: 3,
     justifyContent: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
     height: 40,
+    width: 40,
+
+    // borderWidth: 1,
+    // borderColor: 'green',
+  },
+  searchInputWrapper: {
+    flex: 1,
+    height: 40,
+    width: '90%',
+    overflow: 'hidden',
+    marginRight: 5,
+    flexDirection: 'row',
+    backgroundColor: colors['primary-light'],
+
+    // borderWidth: 1,
+    // borderColor: 'green',
   },
   seachIconWrapper: {
     justifyContent: 'center',
